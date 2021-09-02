@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="729005e8-903b-4b24-be3c-1cbcf2a20cb3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/axxentis/intenship/laboratoireapi/LaboratoireApiApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/axxentis/intenship/laboratoireapi/ServletInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/axxentis/intenship/laboratoireapi/LaboratoireApiApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +18,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.2\plugins\maven\lib\maven3" />
+        <option name="mavenHome" value="C:\Users\user\.m2\wrapper\dists\apache-maven-3.8.2-bin\1um3pu5poco57pibs3g92d6vrf\apache-maven-3.8.2" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -37,11 +28,22 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -50,6 +52,17 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LaboratoireApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="laboratoire-api" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="axxentis.intenship.laboratoireapi.LaboratoireApiApplication" />
@@ -67,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1630578553952</updated>
       <workItem from="1630578559543" duration="403000" />
+      <workItem from="1630582032341" duration="4948000" />
     </task>
     <servers />
   </component>
@@ -83,5 +97,52 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="14" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1630589680092">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="14" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1630589680092" />
+    <state x="229" y="0" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1630582531358">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="229" y="0" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1366.728@0.0.1366.728" timestamp="1630582531358" />
+    <state width="1311" height="150" key="GridCell.Tab.0.bottom" timestamp="1630588944624">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1630588944624" />
+    <state width="1311" height="150" key="GridCell.Tab.0.center" timestamp="1630588944624">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1630588944624" />
+    <state width="1311" height="150" key="GridCell.Tab.0.left" timestamp="1630588944623">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1630588944623" />
+    <state width="1311" height="150" key="GridCell.Tab.0.right" timestamp="1630588944624">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1630588944624" />
+    <state width="1311" height="150" key="GridCell.Tab.1.bottom" timestamp="1630588944625">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1630588944625" />
+    <state width="1311" height="150" key="GridCell.Tab.1.center" timestamp="1630588944624">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1630588944624" />
+    <state width="1311" height="150" key="GridCell.Tab.1.left" timestamp="1630588944624">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1630588944624" />
+    <state width="1311" height="150" key="GridCell.Tab.1.right" timestamp="1630588944625">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1311" height="150" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1630588944625" />
+    <state x="390" y="0" key="RollbackChangesDialog" timestamp="1630582464839">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="390" y="0" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1630582464839" />
   </component>
 </project>
