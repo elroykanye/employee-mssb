@@ -14,7 +14,7 @@ public interface CountryService {
     Optional<Country> getCountry(Long id);
 
     // Create Country
-    Country createCountry(Country country);
+    Country saveCountry(Country country);
 
     // Update Coutry by id
     Country updateCountry(Long id);

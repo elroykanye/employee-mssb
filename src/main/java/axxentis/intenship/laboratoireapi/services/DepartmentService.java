@@ -8,17 +8,17 @@ import java.util.Optional;
 
 public interface DepartmentService {
 
-    // Get all emplyees
+    // Get all Departments
      List<Department> getDepartments();
 
     // Get deparment by Id
      Optional<Department> getDepartment(Long id);
 
-    //Create employee
-     Department createDepartment(Department department);
+    //Create department
+     Department saveDepartment(Department department);
 
     // Update Department
-     Department updateDepartment(Long id);
+//     Optional<Department> updateDepartment(Long id);
 
     // Delete Department by Id
     void deleteDepartment(Long id);

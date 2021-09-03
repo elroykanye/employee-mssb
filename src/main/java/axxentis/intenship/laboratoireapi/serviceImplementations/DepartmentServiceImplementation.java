@@ -4,7 +4,6 @@ import axxentis.intenship.laboratoireapi.entities.Department;
 import axxentis.intenship.laboratoireapi.repositories.DepartmentRepository;
 import axxentis.intenship.laboratoireapi.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,26 +26,26 @@ public class DepartmentServiceImplementation implements DepartmentService {
     }
 
     @Override
-    public Department createDepartment(Department department) {
+    public Department saveDepartment(Department department) {
         return departmentRepository.save(department);
     }
+//
+//    @Override
+//    public Optional<Department> updateDepartment(Long id) {
+//        Optional<Department> department = departmentRepository.findById(id);
+//                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Department", id, "Ressource inexistante"));
+//        String name = department.getName();
+//        if (!name.isEmpty() || !name.isBlank()){
+//            department.setName(name);
+//        }
+//
+//        String description = department.getDescription();
+//        if (!description.isEmpty() || !description.isBlank()){
+//            department.setDescription(description);
+//        }
 
-    @Override
-    public Department updateDepartment(Long id) {
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Department", id, "Ressource inexistante"));
-        String name = department.getName();
-        if (!name.isEmpty() || !name.isBlank()){
-            department.setName(name);
-        }
-
-        String description = department.getDescription();
-        if (!description.isEmpty() || !description.isBlank()){
-            department.setDescription(description);
-        }
-
-        return departmentRepository.save(department);
-    }
+//        return departmentRepository.save(department);
+//    }
 
     @Override
     public void deleteDepartment(Long id) {

@@ -27,7 +27,7 @@ public class CityServiceImplementation implements CityService {
     }
 
     @Override
-    public City createCity(City city) {
+    public City saveCity(City city) {
         return cityRepository.save(city);
     }
 

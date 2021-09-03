@@ -29,7 +29,7 @@ public class CountryServiceImplementation implements CountryService {
     }
 
     @Override
-    public Country createCountry(Country country) {
+    public Country saveCountry(Country country) {
         return countryRepository.save(country);
     }
 

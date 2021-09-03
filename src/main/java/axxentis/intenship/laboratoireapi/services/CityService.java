@@ -14,7 +14,7 @@ public interface CityService {
     Optional<City> getCity(Long id);
 
     //create City
-    City createCity(City city);
+    City saveCity(City city);
 
     //update city
     City updateCity(Long id);
