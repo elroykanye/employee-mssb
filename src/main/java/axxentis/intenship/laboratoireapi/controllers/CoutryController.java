@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/country")
-public class CoutryCOntroller {
+public class CoutryController {
 
     @Autowired
     CountryService countryService;
