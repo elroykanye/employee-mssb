@@ -1,4 +1,4 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
-public class PrevilegeController {
+public class PrivilegeController {
 }
