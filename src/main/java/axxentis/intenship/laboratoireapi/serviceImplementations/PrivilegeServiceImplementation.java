@@ -1,4 +1,4 @@
 package axxentis.intenship.laboratoireapi.serviceImplementations;
 
-public class PrevilegeServiceImplementation {
+public class PrivilegeServiceImplementation {
 }

@@ -10,13 +10,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "image")
-public class Image {
+@Table(name = "privilege")
+public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "url", updatable = true,nullable = false, length = 100)
-    private String url;
+    @Column(name = "name", updatable = true,nullable = false, length = 100)
+    private String name;
+
+    @Column(name = "description", updatable = true, nullable = false, length = 1000)
+    private String description;
 }
