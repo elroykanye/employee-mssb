@@ -1,12 +1,13 @@
 package axxentis.intenship.laboratoireapi.serviceImplementations;
 
 import axxentis.intenship.laboratoireapi.entities.Employee;
+import axxentis.intenship.laboratoireapi.entities.Image;
 import axxentis.intenship.laboratoireapi.repositories.EmployeeRepository;
 import axxentis.intenship.laboratoireapi.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,39 +20,32 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
 
     @Override
-    public Employee findEmployeeByEmail(String email) {
-        Boolean existEmployee = employeeRepository.existsByEmail(email);
-        if (existEmployee) {
-            Optional<Employee> employee = employeeRepository.findByEmail(email);
-            return employee.get();
-        } else {
-            return new Employee();
-        }
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
     @Override
-    public List<Employee> findAllMales() {
-        return employeeRepository.findMaleEmployees();
-    }
-
-    @Override
-    public boolean existEmployeeEmail(String email) {
-        return employeeRepository.existsByEmail(email);
+    public Optional<Employee> findEmployeeById(Long employeeId) {
+        return employeeRepository.findById(employeeId);
     }
 
     @Override
     public Employee addEmployee(Employee employee) {
-        return null;
+        Employee newEmployee = new Employee();
+        newEmployee.setEmail(employee.getEmail());
+        return employeeRepository.save(newEmployee);
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
-        return null;
+    public Employee updateEmployee(Long employeeId, Employee employee) {
+        Optional<Employee> employeeToUpdate = findEmployeeById(employeeId);
+        employeeToUpdate.get().setEmail(employee.getEmail());
+        return employeeRepository.save(employeeToUpdate.get());
     }
 
     @Override
-    public Employee deleteEmployee(Employee employee) {
-        return null;
+    public void deleteEmployee(Employee employee) {
+        employeeRepository.deleteAll();
     }
 
 }

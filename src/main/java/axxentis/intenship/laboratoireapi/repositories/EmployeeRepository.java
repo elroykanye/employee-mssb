@@ -10,10 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    boolean existsByEmail(String email);
-    Optional<Employee> findByEmail(String email);
-
-    @Query("select employee from Employee employee where employee.gender = 'Male' ")
-    List<Employee> findMaleEmployees();
 
 }
