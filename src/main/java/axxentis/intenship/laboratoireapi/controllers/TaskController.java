@@ -1,18 +1,20 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
-import axxentis.intenship.laboratoireapi.entities.Department;
 import axxentis.intenship.laboratoireapi.entities.Task;
+import axxentis.intenship.laboratoireapi.payload.dto.DepartmentDto;
+import axxentis.intenship.laboratoireapi.payload.dto.TaskDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.services.TaskService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/task")
@@ -26,7 +28,8 @@ public class TaskController {
     public ResponseEntity<?> getAllTasks(){
         List<Task> tasks = taskService.getTasks();
         if (!CollectionUtils.isEmpty(tasks)){
-            return ResponseEntity.ok(new ApiResponse(true, tasks, "Get task succesfully!", HttpStatus.OK));
+            List<TaskDto> taskDtos = mapList(tasks, TaskDto.class);
+            return ResponseEntity.ok(new ApiResponse(true, taskDtos, "Get task succesfully!", HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(true, "the List is empty", HttpStatus.NOT_FOUND));
         }
@@ -47,7 +50,8 @@ public class TaskController {
     @PostMapping("/add")
     public ResponseEntity<?>createTask(@RequestBody Task task){
         Task saveTask = taskService.saveTask(task);
-        return ResponseEntity.ok(new ApiResponse(true, saveTask, "Save succesfully", HttpStatus.OK));
+        TaskDto taskDto = mapTaskToTaskDTO(saveTask);
+        return ResponseEntity.ok(new ApiResponse(true, taskDto, "Save succesfully", HttpStatus.OK));
     }
 
     // Update Task
@@ -68,7 +72,8 @@ public class TaskController {
                 currentTask.setDescription(description);
             }
 
-            return ResponseEntity.ok(new ApiResponse(true, taskService.saveTask(currentTask), "Task updated succesfully", HttpStatus.OK));
+            TaskDto taskDto = mapTaskToTaskDTO(taskService.saveTask(currentTask));
+            return ResponseEntity.ok(new ApiResponse(true, taskDto, "Task updated succesfully", HttpStatus.OK));
 
         }else {
             return ResponseEntity.ok(new ApiResponse(false, "Task not found", HttpStatus.NO_CONTENT));
@@ -82,5 +87,34 @@ public class TaskController {
         return ResponseEntity.ok(new ApiResponse(true, "Task deleted succesfully", HttpStatus.OK));
     }
 
+    // Methods for Dto implementation
+
+    /**
+     * Transforme source List to dto list targetClass
+     *
+     * @param source
+     * @param targetClass
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
+
+    /**
+     * Transform single department to  DepartmentDto
+     *
+     *
+     * @param task
+     * @return
+     */
+    private TaskDto mapTaskToTaskDTO(Task task) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(task, TaskDto.class);
+
+    }
 
 }

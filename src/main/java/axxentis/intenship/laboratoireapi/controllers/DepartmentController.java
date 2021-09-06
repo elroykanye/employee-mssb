@@ -2,8 +2,10 @@ package axxentis.intenship.laboratoireapi.controllers;
 
 import axxentis.intenship.laboratoireapi.entities.Department;
 import axxentis.intenship.laboratoireapi.entities.Employee;
+import axxentis.intenship.laboratoireapi.payload.dto.DepartmentDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.services.DepartmentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/department")
@@ -25,7 +28,9 @@ public class DepartmentController  {
     public ResponseEntity<?>getAllDepartments(){
         List<Department> departments = departmentService.getDepartments();
         if (!CollectionUtils.isEmpty(departments)){
-            return ResponseEntity.ok(new ApiResponse(true, departments, "get all successfuly!", HttpStatus.OK));
+            // Map the department class to DepartmentDto class
+            List<DepartmentDto> allDepartmentsDto = mapList(departments, DepartmentDto.class);
+            return ResponseEntity.ok(new ApiResponse(true, allDepartmentsDto, "get all successfuly!", HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, "The list is empty! ", HttpStatus.NOT_FOUND ));
         }
@@ -37,7 +42,8 @@ public class DepartmentController  {
     public ResponseEntity<?>getDepartment(@PathVariable("id") final Long id){
         Optional<Department> department = departmentService.getDepartment(id);
         if (department.isPresent()){
-            return ResponseEntity.ok(new ApiResponse(true, department, "Get succesfuklly", HttpStatus.OK));
+            DepartmentDto departmentDto =  mapDepartmentToDepartmentDTOs(department);
+            return ResponseEntity.ok(new ApiResponse(true, departmentDto, "Get succesfuklly", HttpStatus.OK));
         } else {
             return ResponseEntity.ok(new ApiResponse(false, "Department nout found", HttpStatus.NOT_FOUND));
         }
@@ -47,7 +53,8 @@ public class DepartmentController  {
     @PostMapping("/add")
     public ResponseEntity<?>createDepartment(@RequestBody Department department){
         Department saveDepartment = departmentService.saveDepartment(department);
-        return ResponseEntity.ok(new ApiResponse(true, saveDepartment, "Save succesfully", HttpStatus.OK));
+        DepartmentDto departmentDto = mapDepartmentToDepartmentDTO(saveDepartment);
+        return ResponseEntity.ok(new ApiResponse(true, departmentDto, "Save succesfully", HttpStatus.OK));
     }
 
     // Update departement
@@ -69,7 +76,8 @@ public class DepartmentController  {
                 currentDepartment.setDescription(description);
             }
 
-            return ResponseEntity.ok(new ApiResponse(true, departmentService.saveDepartment(currentDepartment), "Department updated succesfully", HttpStatus.OK));
+            DepartmentDto departmentDto = mapDepartmentToDepartmentDTO(departmentService.saveDepartment(currentDepartment));
+            return ResponseEntity.ok(new ApiResponse(true, departmentDto, "Department updated succesfully", HttpStatus.OK));
 
         }else {
             return ResponseEntity.ok(new ApiResponse(false, "Department not found", HttpStatus.NO_CONTENT));
@@ -83,5 +91,42 @@ public class DepartmentController  {
         departmentService.deleteDepartment(id);
         return ResponseEntity.ok(new ApiResponse(true, "Department deleted succesfully", HttpStatus.OK));
     }
+
+
+    // Methods for Dto implementation
+
+    /**
+     * Transforme source List to dto list targetClass
+     *
+     * @param source
+     * @param targetClass
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
+
+    /**
+     * Transform single department to  DepartmentDto
+     *
+     *
+     * @param department
+     * @return
+     */
+    private DepartmentDto mapDepartmentToDepartmentDTO(Department department) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(department, DepartmentDto.class);
+
+    }
+    private DepartmentDto mapDepartmentToDepartmentDTOs(Optional<Department> department) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(department, DepartmentDto.class);
+
+    }
+
 
 }

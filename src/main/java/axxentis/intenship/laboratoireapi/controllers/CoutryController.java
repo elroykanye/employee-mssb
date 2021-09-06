@@ -2,8 +2,12 @@ package axxentis.intenship.laboratoireapi.controllers;
 
 import axxentis.intenship.laboratoireapi.entities.Country;
 import axxentis.intenship.laboratoireapi.entities.Department;
+import axxentis.intenship.laboratoireapi.entities.Task;
+import axxentis.intenship.laboratoireapi.payload.dto.CountryDto;
+import axxentis.intenship.laboratoireapi.payload.dto.TaskDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.services.CountryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/country")
@@ -25,7 +30,8 @@ public class CoutryController {
     public ResponseEntity<?> getAllCountry(){
         List<Country> countries = countryService.getCountries();
         if (!CollectionUtils.isEmpty(countries)){
-            return ResponseEntity.ok(new ApiResponse(true, countries, "Get country succsesfully", HttpStatus.OK));
+            List<CountryDto> countryDtos = mapList(countries, CountryDto.class);
+            return ResponseEntity.ok(new ApiResponse(true, countryDtos, "Get country succsesfully", HttpStatus.OK));
         } else {
             return ResponseEntity.ok(new ApiResponse(false, "The list is empty", HttpStatus.NO_CONTENT));
         }
@@ -46,12 +52,13 @@ public class CoutryController {
     @PostMapping("/add")
     public ResponseEntity<?>createCountry(@RequestBody Country country){
         Country saveCountry = countryService.saveCountry(country);
-        return ResponseEntity.ok(new ApiResponse(true, saveCountry, "Save succesfully", HttpStatus.OK));
+        CountryDto countryDto = mapCountryCountryDTO(saveCountry);
+        return ResponseEntity.ok(new ApiResponse(true, countryDto, "Save succesfully", HttpStatus.OK));
     }
 
     // Update Country
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateDepartment(@PathVariable("id") final Long id, @RequestBody Country country){
+    public ResponseEntity<?> updateDCountry(@PathVariable("id") final Long id, @RequestBody Country country){
         Optional<Country> c =countryService.getCountry(id);
         if (c.isPresent()){
             Country currentCountry = c.get();
@@ -71,7 +78,8 @@ public class CoutryController {
                 currentCountry.setIndicative(indicative);
             }
 
-            return ResponseEntity.ok(new ApiResponse(true, countryService.saveCountry(currentCountry), "Country updated succesfully", HttpStatus.OK));
+            CountryDto countryDto = mapCountryCountryDTO(countryService.saveCountry(currentCountry));
+            return ResponseEntity.ok(new ApiResponse(true, countryDto, "Country updated succesfully", HttpStatus.OK));
 
         }else {
             return ResponseEntity.ok(new ApiResponse(false, "Country not found", HttpStatus.NO_CONTENT));
@@ -83,6 +91,37 @@ public class CoutryController {
     public ResponseEntity<?> deleteCountry(@PathVariable("id") final Long id){
         countryService.deleteCoutry(id);
         return ResponseEntity.ok(new ApiResponse(true, "Country deleted succesfully", HttpStatus.OK));
+    }
+
+
+    // Methods for Dto implementation
+
+    /**
+     * Transforme source List to dto list targetClass
+     *
+     * @param source
+     * @param targetClass
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
+
+    /**
+     * Transform single department to  DepartmentDto
+     *
+     *
+     * @param country
+     * @return
+     */
+    private CountryDto mapCountryCountryDTO(Country country) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(country, CountryDto.class);
+
     }
 
 }

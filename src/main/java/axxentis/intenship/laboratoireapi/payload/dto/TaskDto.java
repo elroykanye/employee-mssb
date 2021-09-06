@@ -5,11 +5,10 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class DepartmentDto {
+public class TaskDto {
 
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private Date created_at;
-
 }

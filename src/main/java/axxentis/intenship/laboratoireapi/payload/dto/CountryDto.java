@@ -2,14 +2,11 @@ package axxentis.intenship.laboratoireapi.payload.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class DepartmentDto {
+public class CountryDto {
 
     private Long id;
     private String name;
-    private String description;
-    private Date created_at;
-
+    private String iso_code;
+    private String indicative;
 }
