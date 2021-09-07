@@ -43,7 +43,7 @@ public class DepartmentController  {
         Optional<Department> department = departmentService.getDepartment(id);
         if (department.isPresent()){
             DepartmentDto departmentDto =  mapDepartmentToDepartmentDTOs(department);
-            return ResponseEntity.ok(new ApiResponse(true, departmentDto, "Get succesfuklly", HttpStatus.OK));
+            return ResponseEntity.ok(new ApiResponse(true, department, "Get succesfuklly", HttpStatus.OK));
         } else {
             return ResponseEntity.ok(new ApiResponse(false, "Department nout found", HttpStatus.NOT_FOUND));
         }

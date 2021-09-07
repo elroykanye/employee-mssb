@@ -44,7 +44,7 @@ public class CityController {
         Optional<City> city = cityService.getCity(id);
         if (city.isPresent()){
             CityDto cityDto =  mapCityToCityDTOs(city);
-            return ResponseEntity.ok(new ApiResponse(true, cityDto, "Get city successfully", HttpStatus.OK));
+            return ResponseEntity.ok(new ApiResponse(true, city, "Get city successfully", HttpStatus.OK));
         } else {
             return ResponseEntity.ok(new ApiResponse(false, "THe list is empty", HttpStatus.NO_CONTENT));
         }
