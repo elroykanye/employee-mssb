@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface PrivilegeService {
     public List<Privilege> getAllPrivileges();
 
-    Optional<Privilege> findPrivilegeById(Long privilegeId);
+    Optional<Privilege> findPrivilegeById(Long id);
 
     public Privilege addPrivilege(Privilege privilege);
 
-    public Privilege updatePrivilege(Long privilegeId, Privilege privilege);
+    public Privilege updatePrivilege(Long id, Privilege privilege);
 
-    void deletePrivilege(Privilege privilege);
+    void deletePrivilege(Long id);
 
 }
