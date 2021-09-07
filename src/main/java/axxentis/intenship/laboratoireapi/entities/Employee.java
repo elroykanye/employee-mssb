@@ -1,10 +1,14 @@
 package axxentis.intenship.laboratoireapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -18,17 +22,28 @@ public class Employee {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "firstName", updatable = true,nullable = false, length = 50)
+    @Column(name = "firstName", updatable = true, nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", updatable = true, nullable = false, length = 50)
+    @Column(name = "lastName", updatable = true, nullable = false)
     private String lastName;
 
-    @Column(name = "email", updatable = true, nullable = false, length = 200)
+    @Column(name = "email", updatable = true, nullable = true)
     private String email;
 
-    @Column(name = "gender", updatable = true, nullable = false, length = 20)
+    @Column(name = "gender", updatable = true, nullable = true)
     private String gender;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+    private Date created_at;
+
+
+    @Column(name = "updated_on")
+    @UpdateTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+    private Date updated_on;
 
 
 }

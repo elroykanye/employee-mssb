@@ -86,16 +86,16 @@ public class ApiResponse {
         return timestamp;
     }
 
-    public String getCause() {
-        return cause;
-    }
-
     public String getPath() {
         return path;
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public String getCause() {
+        return cause;
     }
 
     public void setMessage(String message) {

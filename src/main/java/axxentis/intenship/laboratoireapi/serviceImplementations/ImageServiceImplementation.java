@@ -23,20 +23,18 @@ public class ImageServiceImplementation implements ImageService {
     }
 
     @Override
-    public Optional<Image> findImageById(Long imageId) {
-        return imageRepository.findById(imageId);
+    public Optional<Image> findImageById(Long id) {
+        return imageRepository.findById(id);
     }
 
     @Override
     public Image addImage(Image image) {
-        Image newImage = new Image();
-        newImage.setUrl(image.getUrl());
-        return imageRepository.save(newImage);
+        return imageRepository.save(image);
     }
 
     @Override
-    public Image updateImage(Long imageId, Image image) {
-        Optional<Image> imageToUpdate = findImageById(imageId);
+    public Image updateImage(Long id, Image image) {
+        Optional<Image> imageToUpdate = findImageById(id);
         imageToUpdate.get().setUrl(image.getUrl());
         return imageRepository.save(imageToUpdate.get());
     }
