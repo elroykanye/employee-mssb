@@ -38,4 +38,10 @@ public class Task {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date updated_on;
 
+    // Relationships
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
+
 }

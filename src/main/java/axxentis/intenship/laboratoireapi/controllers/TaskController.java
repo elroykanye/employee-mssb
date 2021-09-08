@@ -29,7 +29,7 @@ public class TaskController {
         List<Task> tasks = taskService.getTasks();
         if (!CollectionUtils.isEmpty(tasks)){
             List<TaskDto> taskDtos = mapList(tasks, TaskDto.class);
-            return ResponseEntity.ok(new ApiResponse(true, taskDtos, "Get task succesfully!", HttpStatus.OK));
+            return ResponseEntity.ok(new ApiResponse(true, tasks, "Get task succesfully!", HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(true, "the List is empty", HttpStatus.NOT_FOUND));
         }

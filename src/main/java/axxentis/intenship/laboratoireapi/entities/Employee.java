@@ -1,6 +1,9 @@
 package axxentis.intenship.laboratoireapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +12,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // // use to correct Infinite Recursion
 @Table(name = "employee")
 public class Employee {
 
@@ -45,5 +50,28 @@ public class Employee {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date updated_on;
 
+    // Relatinship
+    @OneToOne(mappedBy = "employee")
+//    @JsonManagedReference
+    private Image image;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    private List<Task> tasks;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    private City city;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Employee_Privileges",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id")
+    )
+    private List<Privilege> privileges;
 
 }

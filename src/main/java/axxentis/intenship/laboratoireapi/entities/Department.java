@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,5 +41,8 @@ public class Department {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date updated_on;
 
+    // Relashionsips
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    private List<Employee> employees;
 
 }

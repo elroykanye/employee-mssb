@@ -1,9 +1,10 @@
 package axxentis.intenship.laboratoireapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // use to correct Infinite Recursion
 @Table(name = "image")
 public class Image {
     @Id
@@ -34,4 +36,11 @@ public class Image {
     @UpdateTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date updated_on;
+
+    //Relationship
+    @OneToOne(optional = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+//    @JsonBackReference
+    private Employee employee;
+
 }

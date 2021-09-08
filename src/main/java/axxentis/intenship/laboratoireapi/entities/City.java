@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,4 +35,13 @@ public class City {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     @UpdateTimestamp
     private Date updated_on;
+
+    //Relationships
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    private Country country;
+
+    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
+    private List<Employee> employees;
 }
