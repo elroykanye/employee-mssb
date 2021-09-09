@@ -1,8 +1,10 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
 import axxentis.intenship.laboratoireapi.entities.Employee;
+import axxentis.intenship.laboratoireapi.payload.dto.EmployeeDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.services.EmployeeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/employee")
@@ -22,7 +25,9 @@ public class EmployeeController {
     public ResponseEntity<?>getAll(){
         List<Employee> employees = employeeService.getAllEmployees();
         if (!CollectionUtils.isEmpty(employees)){
-            return ResponseEntity.ok(new ApiResponse(true, employees, "Employees loaded successfully" , HttpStatus.OK));
+            // Map the employee class to EmployeeDto class
+            List<EmployeeDto> allEmployeesDto = mapList(employees, EmployeeDto.class);
+            return ResponseEntity.ok(new ApiResponse(true, allEmployeesDto, "Employees loaded successfully" , HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, employees, "Failed to load employees, empty List", HttpStatus.NOT_FOUND));
         }
@@ -32,9 +37,10 @@ public class EmployeeController {
     public ResponseEntity<?>getEmployee(@PathVariable(value = "id") final Long id){
         Optional<Employee> employee = employeeService.findEmployeeById(id);
         if (employee.isPresent()){
-            return ResponseEntity.ok(new ApiResponse(true, employee, "Employee loaded successfully", HttpStatus.OK));
+            EmployeeDto employeeDto =  mapEmployeeToEmployeeDTO(employee);
+            return ResponseEntity.ok(new ApiResponse(true, employeeDto, "Employee loaded successfully", HttpStatus.OK));
         }else {
-            return ResponseEntity.ok(new ApiResponse(false, employee, "Unsuccessful attempt, employee not found", HttpStatus.NOT_FOUND));
+            return ResponseEntity.ok(new ApiResponse(false, "Unsuccessful attempt, employee not found", HttpStatus.NOT_FOUND));
         }
     }
 
@@ -44,7 +50,8 @@ public class EmployeeController {
         if (employee.getEmail().isBlank() || employee.getEmail().isEmpty()) {
             return ResponseEntity.ok(new ApiResponse(false, employee, "Please enter the employee email!", HttpStatus.PARTIAL_CONTENT));
         } else {
-            return ResponseEntity.ok(new ApiResponse(true, newEmployee, "Employee added successfully", HttpStatus.OK));
+            EmployeeDto employeeDto = mapEmployeeToEmployeeDTO(newEmployee);
+            return ResponseEntity.ok(new ApiResponse(true, employeeDto, "Employee added successfully", HttpStatus.OK));
         }
 
     }
@@ -56,7 +63,8 @@ public class EmployeeController {
         if (employeeService.findEmployeeById(id).isEmpty()){
             return ResponseEntity.ok(new ApiResponse(false, employee, "Employee id " + id + " not found", HttpStatus.NOT_FOUND));
         }else {
-            return ResponseEntity.ok(new ApiResponse(true, newEmployee, "Employee updated Successfully", HttpStatus.OK));
+            EmployeeDto employeeDto = mapEmployeeToEmployeeDTO(newEmployee);
+            return ResponseEntity.ok(new ApiResponse(true, employeeDto, "Employee updated Successfully", HttpStatus.OK));
         }
 
     }
@@ -66,4 +74,42 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok(new ApiResponse(true, "Employee deleted Successfully", HttpStatus.OK));
     }
+
+
+
+    // Methods for Dto implementation
+
+    /**
+     * Transforme source List to dto list targetClass
+     *
+     * @param source
+     * @param targetClass
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
+
+    /**
+     * Transform single Employee to  EmployeeDto
+     *
+     *
+     * @param employee
+     * @return
+     */
+    private EmployeeDto mapEmployeeToEmployeeDTO(Employee employee) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(employee, EmployeeDto.class);
+
+    }
+    private EmployeeDto mapEmployeeToEmployeeDTO(Optional<Employee> employee) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(employee, EmployeeDto.class);
+
+    }
+
 }
