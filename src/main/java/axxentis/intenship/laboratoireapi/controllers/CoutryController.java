@@ -1,11 +1,9 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
 import axxentis.intenship.laboratoireapi.entities.Country;
-import axxentis.intenship.laboratoireapi.entities.Department;
-import axxentis.intenship.laboratoireapi.entities.Task;
 import axxentis.intenship.laboratoireapi.payload.dto.CountryDto;
-import axxentis.intenship.laboratoireapi.payload.dto.TaskDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
+import axxentis.intenship.laboratoireapi.repositories.CountryRepository;
 import axxentis.intenship.laboratoireapi.services.CountryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,9 @@ public class CoutryController {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    CountryRepository countryRepository;
 
     //Get all countries
     @GetMapping("all")
@@ -91,6 +92,17 @@ public class CoutryController {
     public ResponseEntity<?> deleteCountry(@PathVariable("id") final Long id){
         countryService.deleteCoutry(id);
         return ResponseEntity.ok(new ApiResponse(true, "Country deleted succesfully", HttpStatus.OK));
+    }
+
+    // Get Country By name
+    @GetMapping("/coun/{name}")
+    public ResponseEntity<ApiResponse> findByNamee(@PathVariable("name") String name){
+        List<Country> countries = countryRepository.findByName(name);
+        if (!CollectionUtils.isEmpty(countries)){
+            return ResponseEntity.ok(new ApiResponse(true, countries, "Coutry get succesfully", HttpStatus.OK));
+        }else {
+            return ResponseEntity.ok(new ApiResponse(false, "Faild to get country", HttpStatus.NO_CONTENT));
+        }
     }
 
 
