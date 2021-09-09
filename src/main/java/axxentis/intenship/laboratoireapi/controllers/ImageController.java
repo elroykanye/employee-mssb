@@ -1,8 +1,10 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
 import axxentis.intenship.laboratoireapi.entities.Image;
+import axxentis.intenship.laboratoireapi.payload.dto.ImageDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.services.ImageService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/image")
@@ -23,7 +26,9 @@ public class ImageController {
     public ResponseEntity<?>getAll(){
         List<Image> images = imageService.getAllImages();
         if (!CollectionUtils.isEmpty(images)){
-            return ResponseEntity.ok(new ApiResponse(true, images, "Images loaded successfully" , HttpStatus.OK));
+            // Map the employee class to ImageDto class
+            List<ImageDto> allImagesDto = mapList(images, ImageDto.class);
+            return ResponseEntity.ok(new ApiResponse(true, allImagesDto, "Images loaded successfully" , HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, images, "Failed to load images, empty List", HttpStatus.NOT_FOUND));
         }
@@ -33,7 +38,8 @@ public class ImageController {
     public ResponseEntity<?>getImage(@PathVariable(value = "id") final Long id){
         Optional<Image> image = imageService.findImageById(id);
         if (image.isPresent()){
-            return ResponseEntity.ok(new ApiResponse(true, image, "Image loaded successfully", HttpStatus.OK));
+            ImageDto imageDto = mapImageToImageDto(image);
+            return ResponseEntity.ok(new ApiResponse(true, imageDto, "Image loaded successfully", HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, image, "Unsuccessful attempt, image not found", HttpStatus.NOT_FOUND));
         }
@@ -44,7 +50,8 @@ public class ImageController {
         if (image.getUrl().isBlank() || image.getUrl().isEmpty()) {
             return ResponseEntity.ok(new ApiResponse(false, image, "Please enter the image url!", HttpStatus.PARTIAL_CONTENT));
         }else {
-            return ResponseEntity.ok(new ApiResponse(true, newImage, "Image added successfully", HttpStatus.OK));
+            ImageDto imageDto = mapImageToImageDto(newImage);
+            return ResponseEntity.ok(new ApiResponse(true, imageDto, "Image added successfully", HttpStatus.OK));
         }
 
     }
@@ -62,7 +69,8 @@ public class ImageController {
         if (imageService.findImageById(id).isEmpty()){
             return ResponseEntity.ok(new ApiResponse(false, image, "Image id " + id + " not found", HttpStatus.NOT_FOUND));
         }else {
-            return ResponseEntity.ok(new ApiResponse(true, newImage, "Image updated Successfully", HttpStatus.OK));
+            ImageDto imageDto = mapImageToImageDto(newImage);
+            return ResponseEntity.ok(new ApiResponse(true, imageDto, "Image updated Successfully", HttpStatus.OK));
         }
 
     }
@@ -72,6 +80,45 @@ public class ImageController {
         imageService.deleteImage(id);
         return ResponseEntity.ok(new ApiResponse(true, "Image deleted Successfully", HttpStatus.OK));
     }
+
+
+
+    // Methods for Dto implementation
+
+    /**
+     * Transforme source List to dto list targetClass
+     *
+     * @param source
+     * @param targetClass
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        return source.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
+
+
+    /**
+     * Transform single Image to  ImageDto
+     *
+     *
+     * @param image
+     * @return
+     */
+    private ImageDto mapImageToImageDto(Image image) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(image, ImageDto.class);
+
+    }
+    private ImageDto mapImageToImageDto(Optional<Image> image) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(image, ImageDto.class);
+
+    }
+
 }
 
 
