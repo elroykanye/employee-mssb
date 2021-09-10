@@ -1,8 +1,10 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
+import axxentis.intenship.laboratoireapi.entities.Image;
 import axxentis.intenship.laboratoireapi.entities.Privilege;
 import axxentis.intenship.laboratoireapi.payload.dto.PrivilegeDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
+import axxentis.intenship.laboratoireapi.repositories.PrivilegeRepository;
 import axxentis.intenship.laboratoireapi.services.PrivilegeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class PrivilegeController {
 
     @Autowired
     PrivilegeService privilegeService;
+
+    @Autowired
+    PrivilegeRepository privilegeRepository;
 
     @GetMapping(value = "/all")
     public ResponseEntity<?>getAll(){
@@ -73,6 +78,19 @@ public class PrivilegeController {
     public ResponseEntity<?>deletePrivilege(@PathVariable(value = "id") final Long id){
         privilegeService.deletePrivilege(id);
         return ResponseEntity.ok(new ApiResponse(true, "Privilege deleted Successfully", HttpStatus.OK));
+    }
+
+    @GetMapping("name/{name}")
+    public List<Privilege> findByName(@PathVariable("name") String name){
+        return privilegeRepository.findByName(name);
+
+    }
+
+    @GetMapping("name/{name}/{description}")
+    public List<Privilege> findByNameAndDescription(@PathVariable("name") String name,
+                                          @PathVariable("description") String description){
+        return privilegeRepository.findByNameAndDescription(name, description);
+
     }
 
 

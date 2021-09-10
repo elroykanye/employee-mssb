@@ -1,8 +1,10 @@
 package axxentis.intenship.laboratoireapi.controllers;
 
+import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.entities.Image;
 import axxentis.intenship.laboratoireapi.payload.dto.ImageDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
+import axxentis.intenship.laboratoireapi.repositories.ImageRepository;
 import axxentis.intenship.laboratoireapi.services.ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class ImageController {
 
     @Autowired
     ImageService imageService;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @GetMapping(value = "/all")
     public ResponseEntity<?>getAll(){
@@ -81,6 +86,18 @@ public class ImageController {
         return ResponseEntity.ok(new ApiResponse(true, "Image deleted Successfully", HttpStatus.OK));
     }
 
+    @GetMapping("url/{url}")
+    public List<Image> findByUrl(@PathVariable("url") String url){
+        return imageRepository.findByUrl(url);
+
+    }
+
+    @GetMapping("url/{url}/{id}")
+    public List<Image> findByUrlOrderById(@PathVariable("url") String url,
+                                          @PathVariable("id") Long id){
+        return imageRepository.findByUrlOrderById(url);
+
+    }
 
 
     // Methods for Dto implementation

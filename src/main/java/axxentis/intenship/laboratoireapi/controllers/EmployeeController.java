@@ -3,6 +3,7 @@ package axxentis.intenship.laboratoireapi.controllers;
 import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.payload.dto.EmployeeDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
+import axxentis.intenship.laboratoireapi.repositories.EmployeeRepository;
 import axxentis.intenship.laboratoireapi.services.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @GetMapping(value = "/all")
     public ResponseEntity<?>getAll(){
@@ -73,6 +77,31 @@ public class EmployeeController {
     public ResponseEntity<?>deleteEmployee(@PathVariable(value = "id") final Long id){
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok(new ApiResponse(true, "Employee deleted Successfully", HttpStatus.OK));
+    }
+
+    @GetMapping("email/{email}")
+    public List<Employee> findByEmail(@PathVariable("email") String email){
+        return employeeRepository.findByEmail(email);
+
+    }
+
+    @GetMapping("/{firstName}/{lastName}")
+    public List<Employee> findByFirstNameAndLastName(@PathVariable("firstName") String firstName,
+                                                   @PathVariable("lastName") String lastName){
+        return employeeRepository.findByFirstNameAndLastName(firstName,lastName);
+    }
+
+    @GetMapping("firstName/{firstName}/{lastName}")
+    public List<Employee> findByFirstNameOrderByLastName(@PathVariable("firstName") String firstName,
+                                                         @PathVariable("lastName") String lastName){
+        return employeeRepository.findByFirstNameOrderByLastName(firstName);
+
+    }
+
+    @GetMapping("gender/{gender}")
+    public List<Employee> findEmployeesByGender(@PathVariable("gender") String gender){
+        return employeeRepository.findEmployeesByGender(gender);
+
     }
 
 
