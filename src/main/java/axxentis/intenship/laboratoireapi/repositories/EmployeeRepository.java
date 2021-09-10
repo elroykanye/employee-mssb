@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+<<<<<<< HEAD
 //    JPQL Queries
     @Query("FROM Employee WHERE email = ?1")
     List<Employee> findByEmail(String email);
@@ -27,4 +28,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query(value =  "SELECT * FROM employee WHERE gender = :gender", nativeQuery = true)
     List<Employee> findEmployeesByGender(@Param("gender") String gender);
+=======
+    //Get list of employee by depart
+
+
+>>>>>>> 0987c0ef93d213cdde6476a90f79603c6356508e
 }
