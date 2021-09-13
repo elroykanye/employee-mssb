@@ -31,7 +31,7 @@ public class EmployeeController {
         if (!CollectionUtils.isEmpty(employees)){
             // Map the employee class to EmployeeDto class
             List<EmployeeDto> allEmployeesDto = mapList(employees, EmployeeDto.class);
-            return ResponseEntity.ok(new ApiResponse(true, allEmployeesDto, "Employees loaded successfully" , HttpStatus.OK));
+            return ResponseEntity.ok(new ApiResponse(true, employees, "Employees loaded successfully" , HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, employees, "Failed to load employees, empty List", HttpStatus.NOT_FOUND));
         }
@@ -79,11 +79,11 @@ public class EmployeeController {
         return ResponseEntity.ok(new ApiResponse(true, "Employee deleted Successfully", HttpStatus.OK));
     }
 
-    @GetMapping("email/{email}")
-    public List<Employee> findByEmail(@PathVariable("email") String email){
-        return employeeRepository.findByEmail(email);
-
-    }
+//    @GetMapping("email/{email}")
+//    public List<Employee> findByEmail(@PathVariable("email") String email){
+//        return employeeRepository.findByEmail(email);
+//
+//    }
 
     @GetMapping("/{firstName}/{lastName}")
     public List<Employee> findByFirstNameAndLastName(@PathVariable("firstName") String firstName,

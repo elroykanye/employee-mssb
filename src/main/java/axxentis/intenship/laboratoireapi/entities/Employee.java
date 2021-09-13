@@ -38,6 +38,8 @@ public class Employee {
     @Column(name = "gender", updatable = true, nullable = true)
     private String gender;
 
+    private String password;
+
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")

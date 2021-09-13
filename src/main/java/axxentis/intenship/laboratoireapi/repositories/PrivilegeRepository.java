@@ -15,8 +15,8 @@ import java.util.Optional;
 public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {
 
 //    JPQL Queries
-    @Query("from Privilege where name = ?1")
-    List<Privilege> findByName(String name);
+//    @Query("from Privilege where name = ?1")
+    Privilege findByName(String name);
 
     @Query("SELECT e from Privilege e where e.name = ?1 AND e.description = ?2")
     List<Privilege> findByNameAndDescription(String name, String description);

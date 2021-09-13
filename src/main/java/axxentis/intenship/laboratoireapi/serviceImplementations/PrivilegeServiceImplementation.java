@@ -3,6 +3,8 @@ package axxentis.intenship.laboratoireapi.serviceImplementations;
 import axxentis.intenship.laboratoireapi.entities.Privilege;
 import axxentis.intenship.laboratoireapi.repositories.PrivilegeRepository;
 import axxentis.intenship.laboratoireapi.services.PrivilegeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,8 @@ import java.util.Optional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class PrivilegeServiceImplementation implements PrivilegeService {
 
     @Autowired

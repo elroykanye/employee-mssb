@@ -5,7 +5,9 @@ import axxentis.intenship.laboratoireapi.entities.Privilege;
 import axxentis.intenship.laboratoireapi.payload.dto.PrivilegeDto;
 import axxentis.intenship.laboratoireapi.payload.responses.ApiResponse;
 import axxentis.intenship.laboratoireapi.repositories.PrivilegeRepository;
+import axxentis.intenship.laboratoireapi.services.EmployeeService;
 import axxentis.intenship.laboratoireapi.services.PrivilegeService;
+import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class PrivilegeController {
 
     @Autowired
     PrivilegeRepository privilegeRepository;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<?>getAll(){
@@ -61,6 +66,12 @@ public class PrivilegeController {
         }
 
     }
+    // Add role privilage to employee
+    @PostMapping("/role/addtoemployee")
+    public ResponseEntity<?> addPrivilageToEmployee(@RequestBody PrivilegeForm form){
+        employeeService.addPrivilageToEmployee(form.getEmail(), form.getPrivilegeName());
+        return ResponseEntity.ok().build();
+    }
 
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<?>updatePrivilege(@PathVariable(value = "id") final Long id, @RequestBody Privilege privilege){
@@ -80,11 +91,11 @@ public class PrivilegeController {
         return ResponseEntity.ok(new ApiResponse(true, "Privilege deleted Successfully", HttpStatus.OK));
     }
 
-    @GetMapping("name/{name}")
-    public List<Privilege> findByName(@PathVariable("name") String name){
-        return privilegeRepository.findByName(name);
-
-    }
+//    @GetMapping("name/{name}")
+//    public List<Privilege> findByName(@PathVariable("name") String name){
+//        return privilegeRepository.findByName(name);
+//
+//    }
 
     @GetMapping("name/{name}/{description}")
     public List<Privilege> findByNameAndDescription(@PathVariable("name") String name,
@@ -129,6 +140,13 @@ public class PrivilegeController {
         return mapper.map(privilege, PrivilegeDto.class);
 
     }
+}
+
+// Class to add privilage
+@Data
+class PrivilegeForm {
+    private String email;
+    private String privilegeName;
 }
 
 
