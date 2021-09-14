@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class EmployeeServiceImplementation implements EmployeeService, UserDetai
     @Autowired
     EmployeeRepository employeeRepository;
     PrivilegeRepository privilegeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -58,6 +60,8 @@ public class EmployeeServiceImplementation implements EmployeeService, UserDetai
 
     @Override
     public Employee addEmployee(Employee employee) {
+        log.info("Savig new employee {} to the daabase");
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         return employeeRepository.save(employee);
     }
 
@@ -67,6 +71,11 @@ public class EmployeeServiceImplementation implements EmployeeService, UserDetai
         Privilege privilege = privilegeRepository.findByName(privilegeName);
         employee.getPrivileges().add(privilege);
 
+    }
+
+    @Override
+    public Employee getEmployee(String email) {
+        return employeeRepository.findByEmail(email);
     }
 
     @Override

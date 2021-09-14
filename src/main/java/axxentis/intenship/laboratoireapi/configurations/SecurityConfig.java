@@ -1,5 +1,7 @@
 package axxentis.intenship.laboratoireapi.configurations;
 
+import axxentis.intenship.laboratoireapi.filters.CustomAuthenticationFilter;
+import axxentis.intenship.laboratoireapi.filters.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,22 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "/token/refresh/**").permitAll();
-//        http.authorizeRequests().antMatchers("/login/**").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/api/login/**", "api/token/refresh/**").permitAll();
+        http.authorizeRequests().antMatchers(GET, "/api/employee/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
-//        http.addFilter(customAuthenticationFilter);
-//        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/admin").hasRole("ADMIN")
-//                .antMatchers("/user").hasRole("USER")
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin();
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
     }

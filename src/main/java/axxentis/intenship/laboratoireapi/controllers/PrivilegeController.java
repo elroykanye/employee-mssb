@@ -73,6 +73,7 @@ public class PrivilegeController {
         return ResponseEntity.ok().build();
     }
 
+
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<?>updatePrivilege(@PathVariable(value = "id") final Long id, @RequestBody Privilege privilege){
         Privilege newPrivilege = privilegeService.updatePrivilege(id, privilege);
