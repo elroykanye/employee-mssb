@@ -16,6 +16,8 @@ public interface EmployeeService {
 
     void addPrivilageToEmployee(String email, String privilegeName);
 
+    Employee getEmployee(String email);
+
     Employee updateEmployee(Long id, Employee employee);
 
     void deleteEmployee(Long id);
