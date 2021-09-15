@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class LaboratoireApiApplication {
+public class     LaboratoireApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LaboratoireApiApplication.class, args);
