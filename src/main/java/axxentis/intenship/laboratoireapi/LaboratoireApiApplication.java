@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
-//@Slf4j
+@Slf4j
 @SpringBootApplication
 public class     LaboratoireApiApplication {
 
@@ -30,7 +30,7 @@ public class     LaboratoireApiApplication {
 //    @Bean
 //    CommandLineRunner run(PrivilegeService privilegeService, EmployeeService employeeService, CountryService countryService, DepartmentService departmentService, CityService cityService, PrivilegeRepository privilegeRepository ){
 //        return args -> {
-
+//
 //            Country country = countryService.saveCountry(new Country(null,"Cameroon","CM","237",null,null,new ArrayList<>()));
 //            Department department = departmentService.saveDepartment(new Department(null,"ADS","Dep for geek",null,null,new ArrayList<>()));
 //            City city = cityService.saveCity(new City(null,"Yaounde",null,null,country,new ArrayList<>()));
@@ -43,7 +43,7 @@ public class     LaboratoireApiApplication {
 //            log.info("Nom du privilege", privilege1);
 //
 //
-//            employeeService.addPrivilageToEmployee("meilleur2@gmail.com",privilageName);
+////            employeeService.addPrivilageToEmployee("meilleur2@gmail.com",privilageName);
 //
 //        };
 //    }

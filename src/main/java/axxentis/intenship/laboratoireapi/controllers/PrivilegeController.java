@@ -66,7 +66,7 @@ public class PrivilegeController {
         }
 
     }
-    // Add role privilage to employee
+    // Add privilege to employee
     @PostMapping("/role/addtoemployee")
     public ResponseEntity<?> addPrivilageToEmployee(@RequestBody PrivilegeForm form){
         employeeService.addPrivilageToEmployee(form.getEmail(), form.getPrivilegeName());

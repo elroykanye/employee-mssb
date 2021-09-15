@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-@ControllerAdvice  // This anatation is about managin exception globaly
+@ControllerAdvice  // This annotation is about managing exception globaly
 public class GlobalExceptionHandler {
 
     // Manage APIException (Runtime exception)
@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    // Mnaipulate InvalidConfigurationPropertyValueException
+    // Manipulate InvalidConfigurationPropertyValueException
     @ExceptionHandler(InvalidConfigurationPropertyValueException.class)
     public ResponseEntity<?> handleInvalidConfigurationPropertyValueException(InvalidConfigurationPropertyValueException e , WebRequest request){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage(), request.getDescription(false) , 404, "NOK" );

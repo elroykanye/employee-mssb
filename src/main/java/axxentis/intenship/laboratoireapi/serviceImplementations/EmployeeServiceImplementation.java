@@ -40,7 +40,7 @@ public class EmployeeServiceImplementation implements EmployeeService, UserDetai
         if (employee == null){
             throw new UsernameNotFoundException("User not found in the database");
         }else {
-            log.info("User not foud un the dadabase");
+            log.info("User not found in the database");
         }
         Collection<SimpleGrantedAuthority> autorities = new ArrayList<>();
         employee.getPrivileges().forEach(privilege -> {
@@ -61,7 +61,7 @@ public class EmployeeServiceImplementation implements EmployeeService, UserDetai
 
     @Override
     public Employee addEmployee(Employee employee) {
-        log.info("Savig new employee {} to the daabase");
+        log.info("Saving new employee {} to the database");
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         return employeeRepository.save(employee);
     }
