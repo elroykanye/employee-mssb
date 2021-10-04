@@ -34,7 +34,7 @@ public class TaskServiceImplementation implements TaskService {
     @Override
     public Task updateTask(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Task", id, "Ressouce inexistente"));
+                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Task", id, "does not exist"));
 
         String title = task.getTitle();
         if (!title.isEmpty() || !title.isBlank()){

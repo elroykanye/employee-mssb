@@ -33,7 +33,7 @@ public class DepartmentServiceImplementation implements DepartmentService {
 //    @Override
 //    public Optional<Department> updateDepartment(Long id) {
 //        Optional<Department> department = departmentRepository.findById(id);
-//                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Department", id, "Ressource inexistante"));
+//                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Department", id, "not available"));
 //        String name = department.getName();
 //        if (!name.isEmpty() || !name.isBlank()){
 //            department.setName(name);

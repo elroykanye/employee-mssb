@@ -1,11 +1,9 @@
 package axxentis.intenship.laboratoireapi.serviceImplementations;
 
 import axxentis.intenship.laboratoireapi.entities.Country;
-import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.repositories.CountryRepository;
 import axxentis.intenship.laboratoireapi.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyNameException;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +34,7 @@ public class CountryServiceImplementation implements CountryService {
     @Override
     public Country updateCountry(Long id) {
         Country country = countryRepository.findById(id)
-                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Country", id, "Cette ressource n'existe pas"));
+                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("Country", id, "does not exist"));
         String name = country.getName();
         if (!name.isEmpty() || !name.isBlank()){
             country.setName(name);
@@ -56,7 +54,7 @@ public class CountryServiceImplementation implements CountryService {
     }
 
     @Override
-    public void deleteCoutry(Long id) {
+    public void deleteCountry(Long id) {
         countryRepository.deleteById(id);
     }
 }

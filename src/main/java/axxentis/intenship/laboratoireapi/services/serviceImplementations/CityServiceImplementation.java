@@ -34,7 +34,7 @@ public class CityServiceImplementation implements CityService {
     @Override
     public City updateCity(Long id) {
         City city = cityRepository.findById(id)
-                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("City", id, "Resource inexistante"));
+                .orElseThrow(()-> new InvalidConfigurationPropertyValueException("City", id, "not available"));
 
         String name = city.getName();
         if (!name.isEmpty() || !name.isBlank()){

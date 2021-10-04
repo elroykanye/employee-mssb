@@ -90,16 +90,16 @@ public class CoutryController {
     // Delete Country by id
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCountry(@PathVariable("id") final Long id){
-        countryService.deleteCoutry(id);
-        return ResponseEntity.ok(new ApiResponse(true, "Country deleted succesfully", HttpStatus.OK));
+        countryService.deleteCountry(id);
+        return ResponseEntity.ok(new ApiResponse(true, "Country deleted successfully", HttpStatus.OK));
     }
 
     // Get Country By name
-    @GetMapping("/coun/{name}")
-    public ResponseEntity<ApiResponse> findByNamee(@PathVariable("name") String name){
+    @GetMapping("/country/{name}")
+    public ResponseEntity<ApiResponse> findByName(@PathVariable("name") String name){
         List<Country> countries = countryRepository.findByName(name);
         if (!CollectionUtils.isEmpty(countries)){
-            return ResponseEntity.ok(new ApiResponse(true, countries, "Coutry get succesfully", HttpStatus.OK));
+            return ResponseEntity.ok(new ApiResponse(true, countries, "Country get successfully", HttpStatus.OK));
         }else {
             return ResponseEntity.ok(new ApiResponse(false, "Faild to get country", HttpStatus.NO_CONTENT));
         }
