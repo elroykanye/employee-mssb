@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @Repository
 public interface PhoneNumberRepository extends JpaRepository <PhoneNumber, Long> {
-    Boolean existsPhoneNumberByNumero(String numero);
-    Boolean existsPhoneNumberByNumeroAndCountry(String numero, Country country);
+    Boolean existsPhoneNumberByNumber(String numero);
+    Boolean existsPhoneNumberByNumberAndCountry(String number, Country country);
     Boolean existsPhoneNumberByEmployeeAndIsPrincipalTrue(Employee employee);
     Optional<PhoneNumber> findByEmployeeAndIsPrincipalTrue(Employee employee);
-    Optional<PhoneNumber> findPhoneNumberByNumero(String numero);
-    Optional<PhoneNumber> findByNumeroAndCountry(String numero, Country country);
+    Optional<PhoneNumber> findPhoneNumberByNumber(String numero);
+    Optional<PhoneNumber> findByNumberAndCountry(String numero, Country country);
     List<PhoneNumber> findAllByEmployee(Employee employee);
 
 

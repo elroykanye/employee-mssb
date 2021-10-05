@@ -27,8 +27,8 @@ public class City extends Common{
     @Column(name = "CITY_ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "name", updatable = true, nullable = false)
-    private String name;
+    @Column(name = "libelle", updatable = true, nullable = false)
+    private String libelle;
 
     //Relationships
 

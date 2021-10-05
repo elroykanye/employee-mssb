@@ -27,8 +27,8 @@ public class Country {
     @Column(name = "COUNTRY_ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false, updatable = true)
-    private String name;
+    @Column(name = "libelle", nullable = false, updatable = true)
+    private String libelle;
 
     @Column(name = "iso_code", updatable = true, nullable = true)
     private String isoCode;

@@ -35,6 +35,8 @@ public class Employee extends Common {
     private String gender;
 
     private String password;
+    private Boolean isOnLine;
+    private String username;
 
     // Relatinship
     @OneToOne(mappedBy = "employee")

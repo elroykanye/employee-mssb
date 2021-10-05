@@ -36,7 +36,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByUsername(String username);
     Optional<Employee> findEmployeeByUsername(String username);
-    Optional<Employee> findEmployeeByIdAndEnLigneIsTrue(Long id);
+    Optional<Employee> findEmployeeByIdAndIsOnLineIsTrue(Long id);
     Optional<Employee> findEmployeeByEmail(String email);
     @Query("SELECT cts FROM Employee cts INNER JOIN" +
             " PhoneNumber phone ON cts = phone.employee WHERE" +
@@ -44,7 +44,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             " phone.isPrincipal = true ")
     Optional<Employee> findEmployeeByNumeroTelephone(String numero);
 
-    List<Employee> findByNomContainingAndPrenomContaining(String nom, String prenom);
+    List<Employee> findByLastNameContainingAndFirstNameContaining(String nom, String prenom);
     List<Employee> findAll(Specification<Employee> employeeName);
 
 }
