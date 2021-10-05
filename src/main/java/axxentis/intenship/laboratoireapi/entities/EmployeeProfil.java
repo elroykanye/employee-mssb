@@ -1,42 +1,38 @@
 package axxentis.intenship.laboratoireapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // // use to correct Infinite Recursion
-@Table(name = "task")
-public class Task extends  Common{
+@ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class EmployeeProfil extends Common{
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "TASK_ID", updatable = false, nullable = false)
+    @Column(name = "CONTACT_PROFIL_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", updatable = true, nullable = false)
-    private String title;
-
-    @Column(name = "description", updatable = true, nullable = true)
-    private String description;
-
-    // Relationships
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "EMPLOYEE_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Employee employee;
-
+    @ManyToOne(targetEntity = Profil.class, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "PROFIL_ID")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = false)
+    private Profil profil;
 }

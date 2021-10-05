@@ -1,7 +1,7 @@
 package axxentis.intenship.laboratoireapi.repositories;
 
 
-import axxentis.intenship.laboratoireapi.entities.Privilege;
+import axxentis.intenship.laboratoireapi.entities.Profil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 
+
 @Repository
-public interface PrivilegeRepository extends JpaRepository <Privilege, Long> {
+public interface ProfilRepository extends JpaRepository <Profil, Long> {
     Boolean existsByLibelle(String libelle);
-
-    Optional<Privilege> findByLibelle(String libelle);
-
-    List<Privilege> findPrivilegeByLibelleContains(String searchKey);
+    Optional<Profil> findByLibelle(String libelle);
+    List<Profil> findProfilByLibelleContains(String searchKey);
 }

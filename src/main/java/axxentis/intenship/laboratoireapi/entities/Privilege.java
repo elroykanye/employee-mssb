@@ -10,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,28 +20,14 @@ import java.util.Date;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // // use to correct Infinite Recursion
 @Table(name = "privilege")
-public class Privilege {
+public class Privilege extends Common{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column (name = "PRIVILEGE_ID")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", updatable = true, nullable = false)
-    private String name;
-
-    @Column(name = "description", updatable = true, nullable = true)
-    private String description;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date created_at;
-
-
-    @Column(name = "updated_on")
-    @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date updated_on;
-
+    private String libelle;
+    @OneToMany(targetEntity = Autorisation.class, mappedBy = "privilege", fetch = FetchType.LAZY)
+    private List<Autorisation> autorisations = new ArrayList<>();
 
 }

@@ -12,16 +12,19 @@ import java.util.Optional;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
 
-    // EN utilisant le JPQL
+    Boolean existsByLibelle(String libelle);
 
-    // Get coutry by name
-    @Query("SELECT c from Country c where c.name=:name")
-    List<Country> findByName(@Param("name") String name);
+    Optional<Country> findByLibelle(String libelle);
 
-    //EN utilisant le nativeQuery
-    @Query(value = "SELECT * from Country c where c.name=:name", nativeQuery = true)
-    List<Country> findByNameNative(@Param("name") String name);
+    @Query("" +
+            "SELECT CASE WHEN COUNT(p) > 0 THEN " +
+            "TRUE ELSE FALSE END " +
+            "FROM Country p " +
+            "WHERE p.isoCode = ?1"
+    )
+    Boolean existsByIsoCode(String isoCode);
 
+    Optional<Country> findByIsoCode(String isoCode);
 
 
 }

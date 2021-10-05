@@ -20,32 +20,21 @@ import java.util.List;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // // use to correct Infinite Recursion
 @Table(name = "department")
-public class Department {
+public class Department extends Common{
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "DEPARTEMENT_ID", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "name", updatable = true, nullable = false)
     private String name;
 
-    @Column(name = "description", updatable = true, nullable = true)
+    @Column(columnDefinition="TEXT", nullable = true)
     private String description;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date created_at;
-
-
-    @Column(name = "updated_on")
-    @UpdateTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date updated_on;
-
     // Relashionsips
-    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Employee.class, mappedBy = "department", fetch = FetchType.LAZY)
     private List<Employee> employees;
 
 }
