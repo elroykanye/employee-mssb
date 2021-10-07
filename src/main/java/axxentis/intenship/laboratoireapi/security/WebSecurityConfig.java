@@ -20,6 +20,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: Patrick Noah
+ * Date: 03/08/2021
+ * Time: 17:36
+ *
+ * @mail: krolshelby@gmail.com.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(

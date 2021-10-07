@@ -29,7 +29,7 @@ public class Task extends  Common{
     @Column(name = "title", updatable = true, nullable = false)
     private String title;
 
-    @Column(name = "description", updatable = true, nullable = true)
+    @Column(columnDefinition="TEXT", nullable = true)
     private String description;
 
     // Relationships

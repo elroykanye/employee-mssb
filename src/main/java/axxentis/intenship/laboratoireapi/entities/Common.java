@@ -1,6 +1,5 @@
 package axxentis.intenship.laboratoireapi.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +8,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+/**
+ * @author donatien
+ * @created 27/07/2021 - 10:09 AM
+ * @project utilisateur-service
+ */
 
 @MappedSuperclass
 @Data

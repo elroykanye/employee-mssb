@@ -1,9 +1,9 @@
 package axxentis.intenship.laboratoireapi.servicesImpl;
 
 
-import axxentis.intenship.laboratoireapi.entities.Country;
 import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.entities.PhoneNumber;
+import axxentis.intenship.laboratoireapi.entities.Country;
 import axxentis.intenship.laboratoireapi.repositories.PhoneNumberRepository;
 import axxentis.intenship.laboratoireapi.services.PhoneNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,55 +18,55 @@ import java.util.Optional;
 @Service
 public class PhoneNumberServiceImpl implements PhoneNumberService {
     @Autowired
-    private final PhoneNumberRepository numeroTelephoneRepository;
+    private final PhoneNumberRepository phoneNumberRepository;
 
-    public PhoneNumberServiceImpl(PhoneNumberRepository numeroTelephoneRepository) {
+    public PhoneNumberServiceImpl(PhoneNumberRepository phoneNumberRepository) {
         super();
-        this.numeroTelephoneRepository = numeroTelephoneRepository;
+        this.phoneNumberRepository = phoneNumberRepository;
     }
 
     @Override
-    public Optional<PhoneNumber> findNumeroTelePhonePrincipaleByEmployee(Employee employee) {
-        return numeroTelephoneRepository.findByEmployeeAndIsPrincipalTrue(employee);
+    public Optional<PhoneNumber> findNumberTelePhonePrincipaleByEmployee(Employee employee) {
+        return phoneNumberRepository.findByEmployeeAndIsPrincipalTrue(employee);
     }
 
     @Override
-    public Optional<PhoneNumber> findNumeroTelePhoneByNumber(String number) {
-        return numeroTelephoneRepository.findPhoneNumberByNumber(number);
+    public Optional<PhoneNumber> findNumberTelePhoneByNumber(String number) {
+        return phoneNumberRepository.findPhoneNumberByNumber(number);
     }
 
     @Override
     public List<PhoneNumber> getAllPhoneNumberByEmployee(Employee employee) {
-        return numeroTelephoneRepository.findAllByEmployee(employee);
+        return phoneNumberRepository.findAllByEmployee(employee);
     }
 
     @Override
-    public Boolean existPhoneNumberByNumber(String numero) {
-        return numeroTelephoneRepository.existsPhoneNumberByNumber(numero);
+    public Boolean existPhoneNumberByNumber(String number) {
+        return phoneNumberRepository.existsPhoneNumberByNumber(number);
     }
 
     @Override
-    public Boolean existPhoneNumberByNumberAndCountry(String numero, Country country) {
-        return numeroTelephoneRepository.existsPhoneNumberByNumberAndCountry(numero, country);
+    public Boolean existPhoneNumberByNumberAndCountry(String number, Country country) {
+        return phoneNumberRepository.existsPhoneNumberByNumberAndCountry(number, country);
     }
 
     @Override
     public Boolean existPhoneNumberByEmployeeAndIsPrincipalTrue(Employee employee) {
-        return numeroTelephoneRepository.existsPhoneNumberByEmployeeAndIsPrincipalTrue(employee);
+        return phoneNumberRepository.existsPhoneNumberByEmployeeAndIsPrincipalTrue(employee);
     }
 
     @Override
-    public PhoneNumber addPhoneNumber(PhoneNumber numeroTelephone) {
-       return numeroTelephoneRepository.save(numeroTelephone);
+    public PhoneNumber addPhoneNumber(PhoneNumber phoneNumber) {
+       return phoneNumberRepository.save(phoneNumber);
     }
 
     @Override
-    public PhoneNumber updatePhoneNumber(PhoneNumber numeroTelephone) {
-        return numeroTelephoneRepository.save(numeroTelephone);
+    public PhoneNumber updatePhoneNumber(PhoneNumber phoneNumber) {
+        return phoneNumberRepository.save(phoneNumber);
     }
 
     @Override
     public void deletePhoneNumber(Long id) {
-        numeroTelephoneRepository.deleteById(id);
+        phoneNumberRepository.deleteById(id);
     }
 }

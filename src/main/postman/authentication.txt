@@ -1,0 +1,34 @@
+Signin
+POST::: http://localhost:8008/api/auth/signin
+body:::
+	{
+    "username":"john.doe",
+    "password":"Win@26"
+    }
+
+Signup
+POST::: http://localhost:8008/api/auth/signup
+body:::
+{
+"username":"john.doe",
+    "lastName":"Doe",
+    "firstName":"John",
+    "email":"john.doe@gmail.com",
+    "gender":"Male",
+    "password":"Win@26",
+    "confirmationPassword": "Win@26",
+    "phoneNumbers": [
+        {"country": {"indicative": "+237", "isoCode": "CM", "libelle": "Cameroon"}, "number": 689524137, "isPrincipal": true},
+        {"country": {"indicative": "+230", "isoCode": "NIG", "libelle": "Nigeria"}, "number": 658421539, "isPrincipal": false}
+    ],
+    "cityId":1,
+    "departementId":1
+}
+
+
+Logout
+POST::: http://localhost:8008/api/auth/logout
+body:::
+	{
+    "employeeId":1
+    }

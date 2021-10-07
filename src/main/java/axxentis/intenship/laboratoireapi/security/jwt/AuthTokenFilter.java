@@ -18,14 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Patrick Noah
- * Date: 03/08/2021
- * Time: 18:31
- *
- * @mail: krolshelby@gmail.com.
- */
+
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;

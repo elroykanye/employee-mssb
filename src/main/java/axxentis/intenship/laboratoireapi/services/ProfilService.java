@@ -6,7 +6,6 @@ import axxentis.intenship.laboratoireapi.entities.Profil;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface ProfilService {
     List<Profil> findAllProfil();
     List<Profil> SearchProfil(String searchKey);

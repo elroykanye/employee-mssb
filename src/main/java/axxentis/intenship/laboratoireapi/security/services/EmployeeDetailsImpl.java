@@ -31,7 +31,7 @@ public class EmployeeDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public EmployeeDetailsImpl(Long id, String username, String email, String password,
-                               Collection<? extends GrantedAuthority> authorities) {
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -39,13 +39,13 @@ public class EmployeeDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static EmployeeDetailsImpl build(Employee contact) {
-        List<EmployeeProfil> contactProfils = contact.getEmployeeProfils();
+    public static EmployeeDetailsImpl build(Employee employee) {
+        List<EmployeeProfil> employeeProfils = employee.getEmployeeProfils();
         List<Autorisation> autorisations = new ArrayList<>();
         List<Privilege> privileges = new ArrayList<>();
-        for (EmployeeProfil contactProfil: contactProfils
+        for (EmployeeProfil employeeProfil : employeeProfils
              ) {
-            autorisations = contactProfil.getProfil().getAutorisations();
+            autorisations = employeeProfil.getProfil().getAutorisations();
             for (Autorisation authorisation:autorisations
                  ) {
                 privileges.add(authorisation.getPrivilege());
@@ -57,10 +57,10 @@ public class EmployeeDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
 
         return new EmployeeDetailsImpl(
-                contact.getId(),
-                contact.getUsername(),
-                contact.getEmail(),
-                contact.getPassword(),
+                employee.getId(),
+                employee.getUsername(),
+                employee.getEmail(),
+                employee.getPassword(),
                 authorities);
     }
 
@@ -113,7 +113,7 @@ public class EmployeeDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        EmployeeDetailsImpl contact = (EmployeeDetailsImpl) o;
-        return Objects.equals(id, contact.id);
+        EmployeeDetailsImpl employee = (EmployeeDetailsImpl) o;
+        return Objects.equals(id, employee.id);
     }
 }

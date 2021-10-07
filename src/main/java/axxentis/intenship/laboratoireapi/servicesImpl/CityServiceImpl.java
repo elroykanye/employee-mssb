@@ -1,18 +1,15 @@
 package axxentis.intenship.laboratoireapi.servicesImpl;
 
 
-
-import axxentis.intenship.laboratoireapi.entities.City;
 import axxentis.intenship.laboratoireapi.entities.Country;
+import axxentis.intenship.laboratoireapi.entities.City;
 import axxentis.intenship.laboratoireapi.repositories.CityRepository;
 import axxentis.intenship.laboratoireapi.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class CityServiceImpl implements CityService {

@@ -1,6 +1,7 @@
 package axxentis.intenship.laboratoireapi.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,14 +29,14 @@ public class Department extends Common{
     @Column(name = "DEPARTEMENT_ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "name", updatable = true, nullable = false)
-    private String name;
+    @Column(name = "libelle", updatable = true, nullable = false)
+    private String libelle;
 
     @Column(columnDefinition="TEXT", nullable = true)
     private String description;
 
-    // Relashionsips
+    @JsonBackReference
     @OneToMany(targetEntity = Employee.class, mappedBy = "department", fetch = FetchType.LAZY)
-    private List<Employee> employees;
+    private List <Employee> employees = new ArrayList<>();
 
 }

@@ -11,6 +11,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,21 +20,22 @@ import javax.persistence.*;
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PhoneNumber extends Common{
+
     @Id
-    @Column(name = "PHONE_NUMBER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "NUMERO_TELEPHONE_ID")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String number;
     private Boolean isPrincipal;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "EMPLOYEE_ID")
+    @JoinColumn(nullable = false, name = "CONTACT_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Employee employee;
 
     @ManyToOne(targetEntity = Country.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "COUNTRY_ID")
+    @JoinColumn(nullable = false, name = "PAYS_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Country country;

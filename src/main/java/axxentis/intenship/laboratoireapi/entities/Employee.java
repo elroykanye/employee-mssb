@@ -4,52 +4,52 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employee")
+@ToString
+
+
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee extends Common {
 
     @Id
+    @Column(name = "CONTACT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EMPLOYEE_ID", updatable = false, nullable = false)
     private Long id;
-
-    @Column(name = "firstName", updatable = true, nullable = false)
-    private String firstName;
-
-    @Column(name = "lastName", updatable = true, nullable = false)
     private String lastName;
-
-    @Column(name = "email", updatable = true, nullable = true)
+    private String firstName;
+    private Boolean statut;
     private String email;
-
-    @Column(name = "gender", updatable = true, nullable = true)
-    private String gender;
-
-    private String password;
-    private Boolean isOnLine;
     private String username;
+    @JsonIgnore
+    private String password;
+    private Boolean onLine;
 
-    // Relatinship
-    @OneToOne(mappedBy = "employee")
-//    @JsonManagedReference
-    private Image image;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime dateLastConnection;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
-    private List<Task> tasks;
+    @Column(columnDefinition = "integer default 0")
+    private Integer nombreGenerationCode;
+    @Column(columnDefinition = "integer default 0")
+    private Integer nombreVerifyCode;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime dateLastVerifyCode;
 
 
     @ManyToOne(targetEntity = Department.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "DEPARTEMENT_ID")
-     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JoinColumn(nullable = true, name = "DEPARTEMENT_ID")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Department department;
 
@@ -61,10 +61,12 @@ public class Employee extends Common {
     private City city;
 
     @OneToMany(targetEntity = PhoneNumber.class, mappedBy = "employee", fetch = FetchType.LAZY)
-   private List <PhoneNumber> phoneNumbers = new ArrayList<>();
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @OneToMany(targetEntity = EmployeeProfil.class, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List <EmployeeProfil> employeeProfils = new ArrayList <> ();
+    private List<EmployeeProfil> employeeProfils = new ArrayList<>();
 
+    @OneToMany(targetEntity = Task.class, mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
 
 }

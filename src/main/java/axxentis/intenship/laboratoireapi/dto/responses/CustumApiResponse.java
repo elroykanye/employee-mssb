@@ -11,14 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Patrick Noah
- * Date: 03/08/2021
- * Time: 14:38
- *
- * @mail: krolshelby@gmail.com.
- */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

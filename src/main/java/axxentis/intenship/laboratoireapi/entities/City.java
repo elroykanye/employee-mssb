@@ -1,44 +1,37 @@
 package axxentis.intenship.laboratoireapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // // use to correct Infinite Recursion
-@Table(name = "city")
+@ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class City extends Common{
-
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "CITY_ID", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "VILLE_ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "libelle", updatable = true, nullable = false)
+    @Column(name = "libelle", updatable = true, nullable = false, length = 80)
     private String libelle;
 
-    //Relationships
 
     @ManyToOne(targetEntity = Country.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "COUNTRY_ID")
+    @JoinColumn(nullable = false, name = "PAYS_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Country country;
 
-
+    @JsonBackReference
     @OneToMany(targetEntity = Employee.class, mappedBy = "city", fetch = FetchType.LAZY)
-    private List<Employee> employees;
+    private List<Employee> employees = new ArrayList<>();
 }

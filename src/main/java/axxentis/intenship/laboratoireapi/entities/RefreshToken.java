@@ -1,6 +1,5 @@
 package axxentis.intenship.laboratoireapi.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +8,15 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: Patrick Noah
+ * Date: 03/08/2021
+ * Time: 17:24
+ *
+ * @mail: krolshelby@gmail.com.
+ */
 
 @Data
 @NoArgsConstructor
@@ -23,7 +31,7 @@ public class RefreshToken extends Common {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID")
+    @JoinColumn(name = "CONTACT_ID", referencedColumnName = "CONTACT_ID")
     private Employee employee;
 
     @Column(nullable = false, unique = true)

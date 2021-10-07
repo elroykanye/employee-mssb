@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CountryServiceImpl implements CountryService {
     
@@ -49,8 +50,8 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Optional<Country> findCountryByIsoCode(String codeIso) {
-        return countryRepository.findByIsoCode(codeIso);
+    public Optional<Country> findCountryByIsoCode(String isoCode) {
+        return countryRepository.findByIsoCode(isoCode);
     }
 
     @Override

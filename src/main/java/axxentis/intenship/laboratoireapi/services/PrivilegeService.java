@@ -6,8 +6,6 @@ import axxentis.intenship.laboratoireapi.entities.Privilege;
 import java.util.List;
 import java.util.Optional;
 
-
-
 public interface PrivilegeService {
     Privilege addPrivilege(Privilege privilege);
     Privilege updatePrivilege(Privilege privilege);

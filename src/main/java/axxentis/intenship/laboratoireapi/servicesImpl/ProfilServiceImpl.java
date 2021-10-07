@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-
 @Transactional
 @Service
 public class ProfilServiceImpl implements ProfilService {

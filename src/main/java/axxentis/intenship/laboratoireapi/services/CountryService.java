@@ -16,11 +16,11 @@ public interface CountryService {
 
     Optional<Country> findCountryById(Long id);
 
-    Optional<Country> findCountryByIsoCode(String codeIso);
+    Optional<Country> findCountryByIsoCode(String isoCode);
 
     Optional<Country> findCountryByLibelle(String libelle);
 
-    Boolean existCountryByIsoCode(String codeIso);
+    Boolean existCountryByIsoCode(String isoCode);
     Boolean existCountryByLibelle(String libelle);
 
     void deleteCountry(Long id);

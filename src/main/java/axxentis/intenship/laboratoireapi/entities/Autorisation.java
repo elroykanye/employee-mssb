@@ -11,6 +11,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +21,8 @@ import javax.persistence.*;
 public class Autorisation extends Common{
 
     @Id
-    @Column(name = "AUTORISATION_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "AUTORISATION_ID")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private Boolean statut;
     @ManyToOne(targetEntity = Profil.class, fetch = FetchType.LAZY)
