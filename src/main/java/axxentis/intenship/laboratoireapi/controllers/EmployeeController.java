@@ -348,6 +348,7 @@ public class EmployeeController {
                 throw new ConflictException(message);
             }
         }
+
         optionalEmployee.get().setLastName(Tools.upperCase(employeeUpdateRequestDto.getLastName()));
         optionalEmployee.get().setFirstName(Tools.toCapitalize(employeeUpdateRequestDto.getFirstName()));
         optionalEmployee.get().setEmail(Tools.lowerCase(employeeUpdateRequestDto.getEmail()));
