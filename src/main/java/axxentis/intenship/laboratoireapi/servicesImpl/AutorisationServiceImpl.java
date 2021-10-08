@@ -27,6 +27,11 @@ public class AutorisationServiceImpl implements AutorisationService {
     }
 
     @Override
+    public Boolean existsByProfil(Profil profil) {
+        return autorisationRepository.existsByProfil(profil);
+    }
+
+    @Override
     public Boolean existsByProfilAndPrivilege(Profil profil, Privilege privilege) {
         return autorisationRepository.existsByProfilAndPrivilege(profil, privilege);
     }

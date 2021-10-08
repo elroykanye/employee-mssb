@@ -31,7 +31,7 @@ public interface EmployeeService {
 
 
 //    List<Employee> findByLikeCriteria(String search, String lastName, String firstName, String cxpId, Boolean status, String langue,String telephone, String fonction, String raisonSociale);
-    List<Employee> searchByLikeCriteria(String search, String lastName, String firstName, String cxpId, Boolean status, String langue, String telephone, String fonction, String raisonSociale);
+    List<Employee> searchByLikeCriteria(String search, String lastName, String firstName, Boolean status, String telephone, String departement);
     List<Employee> findByCriteria(String employeeName, String employeeRole);
     List<Employee> findByCriteria(String employeeName);
 }

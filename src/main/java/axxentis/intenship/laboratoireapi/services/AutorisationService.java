@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AutorisationService {
+    Boolean existsByProfil(Profil profil);
     Boolean existsByProfilAndPrivilege(Profil profil, Privilege privilege);
     Optional<Autorisation> findAutorisationByProfilAndPrivilege(Profil profil, Privilege privilege);
     Optional<Autorisation> findAutorisationById(Long id);

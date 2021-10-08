@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface AutorisationRepository extends JpaRepository<Autorisation, Long> {
+    Boolean existsByProfil(Profil profil);
     Boolean existsByProfilAndPrivilege(Profil profil, Privilege privilege);
     Optional<Autorisation> findAutorisationByProfilAndPrivilege(Profil profil, Privilege privilege);
     Optional<Autorisation> findAutorisationByProfil(Profil profil);
