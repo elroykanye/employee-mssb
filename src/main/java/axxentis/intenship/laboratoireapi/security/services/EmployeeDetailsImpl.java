@@ -57,7 +57,7 @@ public class EmployeeDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
 
         return new EmployeeDetailsImpl(
-                employee.getId(),
+                employee.getEmployeeId(),
                 employee.getUsername(),
                 employee.getEmail(),
                 employee.getPassword(),
