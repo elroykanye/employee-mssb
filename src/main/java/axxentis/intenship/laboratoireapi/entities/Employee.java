@@ -25,7 +25,7 @@ public class Employee extends Common {
     @Id
     @Column(name = "CONTACT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeId;
     private String lastName;
     private String firstName;
     private Boolean statut;
