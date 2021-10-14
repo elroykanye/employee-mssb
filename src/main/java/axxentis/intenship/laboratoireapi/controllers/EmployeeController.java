@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -317,7 +316,7 @@ public class EmployeeController {
             throw new ResourceNotFoundException(message);
         }
         Optional<Employee> employee = employeeService.findEmployeeByEmail(employeeUpdateRequestDto.getEmail());
-        if (employee.isPresent() && !optionalEmployee.get().getId().equals(employeeUpdateRequestDto.getId())) {
+        if (employee.isPresent() && !optionalEmployee.get().getEmployeeId().equals(employeeUpdateRequestDto.getId())) {
             message = CustumMessage.EMAIL_TAKEN;
             LOGGER.error(message);
             throw new ConflictException(message);
@@ -342,7 +341,7 @@ public class EmployeeController {
                 aCountry = optionalCountry.get();
             }
             boolean alreadyExist = phoneNumberService.existPhoneNumberByNumberAndCountry(phoneDto.getNumber(), aCountry);
-            if (alreadyExist && !optionalEmployee.get().getId().equals(employeeUpdateRequestDto.getId())) {
+            if (alreadyExist && !optionalEmployee.get().getEmployeeId().equals(employeeUpdateRequestDto.getId())) {
                 message = CustumMessage.NUMERO_EXISTANT;
                 LOGGER.error(message);
                 throw new ConflictException(message);
