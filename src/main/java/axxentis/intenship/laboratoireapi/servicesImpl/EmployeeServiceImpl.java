@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Optional<Employee> findEmployeeByIdAndOnLineIsTrue(Long id) {
-        return employeeRepository.findEmployeeByIdAndOnLineIsTrue(id);
+        return employeeRepository.findEmployeeByEmployeeIdAndOnLineIsTrue(id);
     }
 
     @Override
