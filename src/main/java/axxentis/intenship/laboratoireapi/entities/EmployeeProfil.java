@@ -35,6 +35,8 @@ public class EmployeeProfil extends Common{
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private Employee employee;
+
+
     @ManyToOne(targetEntity = Profil.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "PROFIL_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
