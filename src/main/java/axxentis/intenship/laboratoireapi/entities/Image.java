@@ -26,12 +26,12 @@ public class Image {
     @Column(name = "url", updatable = true,nullable = false)
     private String url;
 
-
-
     //Relationship
     @OneToOne(optional = false)
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
-//    @JsonBackReference
+    // TODO 2. check the @JoinColumn fix which was originally the commented line below
+    // @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "CONTACT_ID")
+    // @JsonBackReference
     private Employee employee;
 
 }
