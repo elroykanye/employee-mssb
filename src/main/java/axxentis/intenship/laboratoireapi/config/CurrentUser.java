@@ -6,6 +6,7 @@ import axxentis.intenship.laboratoireapi.repositories.EmployeeRepository;
 import axxentis.intenship.laboratoireapi.security.jwt.JwtUtils;
 import axxentis.intenship.laboratoireapi.security.services.EmployeeDetailsImpl;
 import axxentis.intenship.laboratoireapi.security.services.RefreshTokenService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+@AllArgsConstructor
 public class CurrentUser {
-    @Autowired
-    EmployeeRepository employeeRepository;
-    @Autowired
-    JwtUtils jwtUtils;
-    @Autowired
-    RefreshTokenService refreshTokenService;
+    private final EmployeeRepository employeeRepository;
+    private final JwtUtils jwtUtils;
+    private final RefreshTokenService refreshTokenService;
 
     public Employee information() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
