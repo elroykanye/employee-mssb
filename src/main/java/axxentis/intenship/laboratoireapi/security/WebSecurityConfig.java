@@ -4,7 +4,7 @@ package axxentis.intenship.laboratoireapi.security;
 import axxentis.intenship.laboratoireapi.security.jwt.AuthEntryPointJwt;
 import axxentis.intenship.laboratoireapi.security.jwt.AuthTokenFilter;
 import axxentis.intenship.laboratoireapi.security.services.EmployeeDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,21 +26,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * User: Patrick Noah
  * Date: 03/08/2021
  * Time: 17:36
- *
- * @mail: krolshelby@gmail.com.
+ * email: krolshelby@gmail.com.
  */
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 @EnableGlobalMethodSecurity(
         // securedEnabled = true,
         // jsr250Enabled = true,
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    EmployeeDetailsServiceImpl employeeDetailsService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private final EmployeeDetailsServiceImpl employeeDetailsService;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -65,7 +62,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-ui.html", "/", "/swagger-resources/**", "/configuration/**", "/webjars/**");
+        String[] ignorableEndpoints = new String[] {
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-ui.html",
+                "/",
+                "/swagger-resources/**",
+                "/configuration/**",
+                "/webjars/**"
+        };
+        web.ignoring().antMatchers(ignorableEndpoints);
     }
 
     @Override
