@@ -34,7 +34,9 @@ public class Task extends  Common{
 
     // Relationships
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "EMPLOYEE_ID")
+    // TODO 1. check the @JoinColumn fix which was originally the commented line below
+    // @JoinColumn(nullable = false, name = "EMPLOYEE_ID")
+    @JoinColumn(nullable = false, name = "CONTACT_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
     private Employee employee;
