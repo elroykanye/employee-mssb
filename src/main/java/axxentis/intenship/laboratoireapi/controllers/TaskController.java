@@ -28,4 +28,14 @@ public class TaskController {
     public ResponseEntity<List<TaskDto>> getAllTasksByEmployee(@PathVariable(value = "employeeEmail") String employeeEmail) {
         return taskService.getAllTasksByEmployee(employeeEmail);
     }
+
+    @PutMapping
+    public ResponseEntity<String> updateTask(@RequestBody TaskDto taskDto) {
+        return taskService.updateTask(taskDto);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteTask(@RequestParam(name = "task_id") Long taskId) {
+        return taskService.deleteTask(taskId);
+    }
 }

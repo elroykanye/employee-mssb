@@ -82,4 +82,43 @@ public class TaskServiceImpl implements TaskService {
                 new ResponseEntity<>(taskDtos, HttpStatus.FOUND):
                 new ResponseEntity<>(List.of(), HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public ResponseEntity<String> updateTask(TaskDto taskDto) {
+        AtomicBoolean taskUpdated = new AtomicBoolean(false);
+        AtomicReference<String> updateMessage = new AtomicReference<>("Default message");
+        Optional<Task> taskOptional = taskRepository.findById(taskDto.getId());
+
+        taskOptional.ifPresentOrElse(
+                task -> {
+                    Task updatedTask = taskMapper.mapDtoToTask(taskDto);
+                    taskRepository.save(updatedTask);
+                    taskUpdated.set(true);
+                    updateMessage.set("Task updated");
+                },
+                () -> updateMessage.set("Task does not exist")
+        );
+        return taskUpdated.get() ?
+                new ResponseEntity<>(updateMessage.get(), HttpStatus.ACCEPTED):
+                new ResponseEntity<>(updateMessage.get(), HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteTask(Long taskId) {
+        AtomicBoolean taskDeleted = new AtomicBoolean(false);
+
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+
+        taskOptional.ifPresentOrElse(
+                task -> {
+                    taskRepository.deleteById(taskId);
+                    taskDeleted.set(true);
+                },
+                () -> {}
+        );
+
+        return taskDeleted.get() ?
+                new ResponseEntity<>("Task deleted", HttpStatus.FOUND):
+                new ResponseEntity<>("Task not deleted", HttpStatus.NOT_FOUND);
+    }
 }

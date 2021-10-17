@@ -13,4 +13,8 @@ public interface TaskService {
     ResponseEntity<List<TaskDto>> getAllTasks();
 
     ResponseEntity<List<TaskDto>> getAllTasksByEmployee(String employeeEmail);
+
+    ResponseEntity<String> updateTask(TaskDto taskDto);
+
+    ResponseEntity<String> deleteTask(Long taskId);
 }
