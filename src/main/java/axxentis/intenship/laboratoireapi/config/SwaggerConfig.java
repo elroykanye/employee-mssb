@@ -31,6 +31,7 @@ public class SwaggerConfig {
                 .description("Employee management software")
                 .version("0.0.1")
                 .contact(
+                        // TODO add your contact info here
                         new Contact(
                                 "Amandine Nangah",
                                 "url",
