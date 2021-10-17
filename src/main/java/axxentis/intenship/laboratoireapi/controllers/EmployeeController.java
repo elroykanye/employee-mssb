@@ -11,6 +11,7 @@ import axxentis.intenship.laboratoireapi.entities.*;
 import axxentis.intenship.laboratoireapi.exception.ConflictException;
 import axxentis.intenship.laboratoireapi.exception.ResourceNotFoundException;
 import axxentis.intenship.laboratoireapi.services.*;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,42 +33,25 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/intenship")
+@AllArgsConstructor
 @Validated
 public class EmployeeController {
     private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    EmployeeService employeeService;
+    private final EmployeeService employeeService;
+    private final PasswordEncoder encoder;
+    private final CurrentUserService currentUserService;
+    private final PhoneNumberService phoneNumberService;
+    private final ProfilService profilService;
+    private final PrivilegeService privilegeService;
+    private final EmployeeProfilService employeeProfilService;
+    private final CountryService countryService;
+    private final CityService cityService;
+    private final DepartmentService departmentService;
+    private final AutorisationService autorisationService;
 
 
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    CurrentUserService currentUserService;
-
-    @Autowired
-    PhoneNumberService phoneNumberService;
-    @Autowired
-    ProfilService profilService;
-    @Autowired
-    PrivilegeService privilegeService;
-    @Autowired
-    EmployeeProfilService employeeProfilService;
-
-    @Autowired
-    CountryService countryService;
-
-    @Autowired
-    CityService cityService;
-
-    @Autowired
-    DepartmentService departmentService;
-
-    @Autowired
-    AutorisationService autorisationService;
-
-    Employee currentUser;
+    public Employee currentUser;
     public String message;
 
 

@@ -1,4 +1,4 @@
-package axxentis.intenship.laboratoireapi.servicesImpl;
+package axxentis.intenship.laboratoireapi.services.servicesImpl;
 
 import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.entities.VerifyEmployee;

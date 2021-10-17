@@ -32,6 +32,9 @@ public class Task extends  Common{
     @Column(columnDefinition="TEXT", nullable = true)
     private String description;
 
+    @Column(nullable = false)
+    private Boolean taskComplete;
+
     // Relationships
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     // TODO 1. check the @JoinColumn fix which was originally the commented line below

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class TaskDto {
     private Long id;
-    private String libelle;
+    private String title;
     private String description;
+    private Boolean taskComplete;
+    private String assigneeEmail;
 }
