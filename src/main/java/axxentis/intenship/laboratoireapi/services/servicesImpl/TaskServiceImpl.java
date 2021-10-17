@@ -12,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -45,5 +48,38 @@ public class TaskServiceImpl implements TaskService {
         return taskAdded.get() ?
                 new ResponseEntity<>("Task added", HttpStatus.CREATED):
                 new ResponseEntity<>("Employee not found", HttpStatus.FORBIDDEN);
+    }
+
+    @Override
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        List<TaskDto> taskDtos = taskRepository.findAll()
+                .stream()
+                .map(taskMapper::mapTaskToDto)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(taskDtos, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<TaskDto>> getAllTasksByEmployee(String employeeEmail) {
+        AtomicBoolean tasksFound = new AtomicBoolean(false);
+        AtomicReference<List<Task>> employeeTasks = new AtomicReference<>();
+
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(employeeEmail);
+        employeeOptional.ifPresentOrElse(
+                employee -> {
+                    employeeTasks.set(taskRepository.findAllByEmployee(employee));
+                    tasksFound.set(true);
+                },
+                () -> {}
+        );
+
+        List<TaskDto> taskDtos = employeeTasks.get()
+                .stream()
+                .map(taskMapper::mapTaskToDto)
+                .collect(Collectors.toList());
+
+        return tasksFound.get() ?
+                new ResponseEntity<>(taskDtos, HttpStatus.FOUND):
+                new ResponseEntity<>(List.of(), HttpStatus.NOT_FOUND);
     }
 }
