@@ -17,10 +17,10 @@ import axxentis.intenship.laboratoireapi.security.jwt.JwtUtils;
 import axxentis.intenship.laboratoireapi.security.jwt.exception.TokenRefreshException;
 import axxentis.intenship.laboratoireapi.security.services.RefreshTokenService;
 import axxentis.intenship.laboratoireapi.services.*;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,48 +44,24 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/api/auth")
 @Validated
+@AllArgsConstructor
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    EmployeeService employeeService;
+    private final AuthenticationManager authenticationManager;
+    private final EmployeeService employeeService;
+    private final CountryService countryService;
+    private final CityService cityService;
+    private final DepartmentService departmentService;
+    private final PhoneNumberService phoneNumberService;
+    private final PrivilegeService privilegeService;
+    private final ProfilService profilService;
+    private final AutorisationService autorisationService;
+    private final EmployeeProfilService employeeProfilService;
+    private final CurrentUserService currentUserService;
+    private final RefreshTokenService refreshTokenService;
+    private final VerifyEmployeeService verifyEmployeeService;
+    private final PasswordEncoder encoder;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    CountryService countryService;
-    @Autowired
-    CityService cityService;
-    @Autowired
-    DepartmentService departmentService;
-
-    @Autowired
-    PhoneNumberService phoneNumberService;
-
-
-    @Autowired
-    PrivilegeService privilegeService;
-
-    @Autowired
-    ProfilService profilService;
-    @Autowired
-    AutorisationService autorisationService;
-
-
-    @Autowired
-    EmployeeProfilService employeeProfilService;
-
-    @Autowired
-    CurrentUserService currentUserService;
-    @Autowired
-    RefreshTokenService refreshTokenService;
-
-    @Autowired
-    VerifyEmployeeService verifyEmployeeService;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    JwtUtils jwtUtils;
 
 
     Logger LOGGER = LoggerFactory.getLogger(this.getClass());

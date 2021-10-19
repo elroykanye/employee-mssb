@@ -20,7 +20,7 @@ public class EmployeeDto {
     @NotNull(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     private String firstName;
     @Email(message = CustumMessage.EMAIL_INCORRECTE)
-    @Size(max = 50)
+    @Size(max = 100)
     private String email;
     private String username;
     private String password;

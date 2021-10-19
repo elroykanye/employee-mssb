@@ -66,7 +66,7 @@ public class Employee extends Common {
     @OneToMany(targetEntity = EmployeeProfil.class, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeProfil> employeeProfils = new ArrayList<>();
 
-    @OneToMany(targetEntity = Task.class, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Task> tasks = new ArrayList<>();
+    @OneToMany(targetEntity = Schedule.class, mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Schedule> schedules = new ArrayList<>();
 
 }
