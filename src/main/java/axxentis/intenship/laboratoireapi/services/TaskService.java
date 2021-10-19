@@ -12,7 +12,7 @@ public interface TaskService {
 
     ResponseEntity<List<TaskDto>> getAllTasks();
 
-    ResponseEntity<List<TaskDto>> getAllTasksByEmployee(String employeeEmail);
+    ResponseEntity<List<TaskDto>> getAllTasksBySchedule(String scheduleTitle);
 
     ResponseEntity<String> updateTask(TaskDto taskDto);
 

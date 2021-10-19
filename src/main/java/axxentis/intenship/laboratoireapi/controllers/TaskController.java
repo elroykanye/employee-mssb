@@ -24,9 +24,9 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @GetMapping(value = "/{employeeEmail}")
-    public ResponseEntity<List<TaskDto>> getAllTasksByEmployee(@PathVariable(value = "employeeEmail") String employeeEmail) {
-        return taskService.getAllTasksByEmployee(employeeEmail);
+    @GetMapping(value = "/{scheduleTitle}")
+    public ResponseEntity<List<TaskDto>> getAllTasksBySchedule(@PathVariable(value = "scheduleTitle") String scheduleTitle) {
+        return taskService.getAllTasksBySchedule(scheduleTitle);
     }
 
     @PutMapping

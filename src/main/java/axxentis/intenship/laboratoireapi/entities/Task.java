@@ -36,12 +36,12 @@ public class Task extends  Common{
     private Boolean taskComplete;
 
     // Relationships
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Schedule.class, fetch = FetchType.LAZY)
     // TODO 1. check the @JoinColumn fix which was originally the commented line below
     // @JoinColumn(nullable = false, name = "EMPLOYEE_ID")
-    @JoinColumn(nullable = false, name = "CONTACT_ID")
+    @JoinColumn(nullable = false, name = "SCHEDULE_ID")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = false)
-    private Employee employee;
+    private Schedule schedule;
 
 }

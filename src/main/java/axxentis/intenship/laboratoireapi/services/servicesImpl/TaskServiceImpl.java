@@ -2,9 +2,11 @@ package axxentis.intenship.laboratoireapi.services.servicesImpl;
 
 import axxentis.intenship.laboratoireapi.dto.request.TaskDto;
 import axxentis.intenship.laboratoireapi.entities.Employee;
+import axxentis.intenship.laboratoireapi.entities.Schedule;
 import axxentis.intenship.laboratoireapi.entities.Task;
 import axxentis.intenship.laboratoireapi.mapper.TaskMapper;
 import axxentis.intenship.laboratoireapi.repositories.EmployeeRepository;
+import axxentis.intenship.laboratoireapi.repositories.ScheduleRepository;
 import axxentis.intenship.laboratoireapi.repositories.TaskRepository;
 import axxentis.intenship.laboratoireapi.services.TaskService;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
-    private final EmployeeRepository employeeRepository;
+    private final ScheduleRepository scheduleRepository;
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 
@@ -30,11 +32,11 @@ public class TaskServiceImpl implements TaskService {
         AtomicBoolean taskAdded = new AtomicBoolean(false);
         Task task = taskMapper.mapDtoToTask(taskDto);
 
-        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(taskDto.getAssigneeEmail());
-        employeeOptional.ifPresentOrElse(
-                employee -> {
+        Optional<Schedule> scheduleOptional = scheduleRepository.findScheduleByTitle(taskDto.getAssigneeTitle());
+        scheduleOptional.ifPresentOrElse(
+                schedule -> {
                     // set employee to the task
-                    task.setEmployee(employee);
+                    task.setSchedule(schedule);
 
                     // save the repository with the employee gotten
                     taskRepository.save(task);
@@ -47,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
 
         return taskAdded.get() ?
                 new ResponseEntity<>("Task added", HttpStatus.CREATED):
-                new ResponseEntity<>("Employee not found", HttpStatus.FORBIDDEN);
+                new ResponseEntity<>("Schedule not found", HttpStatus.FORBIDDEN);
     }
 
     @Override
@@ -60,20 +62,20 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public ResponseEntity<List<TaskDto>> getAllTasksByEmployee(String employeeEmail) {
+    public ResponseEntity<List<TaskDto>> getAllTasksBySchedule(String scheduleTitle) {
         AtomicBoolean tasksFound = new AtomicBoolean(false);
-        AtomicReference<List<Task>> employeeTasks = new AtomicReference<>();
+        AtomicReference<List<Task>> schduledTasks = new AtomicReference<>();
 
-        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(employeeEmail);
-        employeeOptional.ifPresentOrElse(
-                employee -> {
-                    employeeTasks.set(taskRepository.findAllByEmployee(employee));
+        Optional<Schedule> scheduleOptional = scheduleRepository.findScheduleByTitle(scheduleTitle);
+        scheduleOptional.ifPresentOrElse(
+                schedule -> {
+                    schduledTasks.set(taskRepository.findAllBySchedule(schedule));
                     tasksFound.set(true);
                 },
                 () -> {}
         );
 
-        List<TaskDto> taskDtos = employeeTasks.get()
+        List<TaskDto> taskDtos = schduledTasks.get()
                 .stream()
                 .map(taskMapper::mapTaskToDto)
                 .collect(Collectors.toList());
@@ -82,6 +84,30 @@ public class TaskServiceImpl implements TaskService {
                 new ResponseEntity<>(taskDtos, HttpStatus.FOUND):
                 new ResponseEntity<>(List.of(), HttpStatus.NOT_FOUND);
     }
+
+//    @Override
+//    public ResponseEntity<List<TaskDto>> getAllTasksByEmployee(String employeeEmail) {
+//        AtomicBoolean tasksFound = new AtomicBoolean(false);
+//        AtomicReference<List<Task>> employeeTasks = new AtomicReference<>();
+//
+//        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByEmail(employeeEmail);
+//        employeeOptional.ifPresentOrElse(
+//                employee -> {
+//                    employeeTasks.set(taskRepository.findAllByEmployee(employee));
+//                    tasksFound.set(true);
+//                },
+//                () -> {}
+//        );
+//
+//        List<TaskDto> taskDtos = employeeTasks.get()
+//                .stream()
+//                .map(taskMapper::mapTaskToDto)
+//                .collect(Collectors.toList());
+//
+//        return tasksFound.get() ?
+//                new ResponseEntity<>(taskDtos, HttpStatus.FOUND):
+//                new ResponseEntity<>(List.of(), HttpStatus.NOT_FOUND);
+//    }
 
     @Override
     public ResponseEntity<String> updateTask(TaskDto taskDto) {
