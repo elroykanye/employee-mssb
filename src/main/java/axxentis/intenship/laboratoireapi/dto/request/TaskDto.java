@@ -10,5 +10,5 @@ public class TaskDto {
     private String title;
     private String description;
     private Boolean taskComplete;
-    private String assigneeTitle;
+    private String assigneeEmail;
 }
