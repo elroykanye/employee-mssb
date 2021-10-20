@@ -1,11 +1,9 @@
 package axxentis.intenship.laboratoireapi.services.servicesImpl;
 
 import axxentis.intenship.laboratoireapi.dto.request.TaskDto;
-import axxentis.intenship.laboratoireapi.entities.Employee;
 import axxentis.intenship.laboratoireapi.entities.Schedule;
 import axxentis.intenship.laboratoireapi.entities.Task;
 import axxentis.intenship.laboratoireapi.mapper.TaskMapper;
-import axxentis.intenship.laboratoireapi.repositories.EmployeeRepository;
 import axxentis.intenship.laboratoireapi.repositories.ScheduleRepository;
 import axxentis.intenship.laboratoireapi.repositories.TaskRepository;
 import axxentis.intenship.laboratoireapi.services.TaskService;
@@ -32,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
         AtomicBoolean taskAdded = new AtomicBoolean(false);
         Task task = taskMapper.mapDtoToTask(taskDto);
 
-        Optional<Schedule> scheduleOptional = scheduleRepository.findScheduleByTitle(taskDto.getAssigneeTitle());
+        Optional<Schedule> scheduleOptional = scheduleRepository.findScheduleByTitle(taskDto.getAssigneeEmail());
         scheduleOptional.ifPresentOrElse(
                 schedule -> {
                     // set employee to the task
