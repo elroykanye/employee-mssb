@@ -11,7 +11,7 @@
     <groupId>axxentis.intenship</groupId>
     <artifactId>laboratoire-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>laboratoire-api</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -146,7 +146,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${org.projectlombok.version}</version>
+                            <version>0.1.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
