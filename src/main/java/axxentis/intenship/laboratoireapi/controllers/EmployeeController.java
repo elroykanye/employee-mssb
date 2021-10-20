@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Validated
 public class EmployeeController {
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     private final EmployeeService employeeService;
     private final PasswordEncoder encoder;
@@ -49,9 +49,8 @@ public class EmployeeController {
     private final DepartmentService departmentService;
     private final AutorisationService autorisationService;
 
-
-    public Employee currentUser;
-    public String message;
+    public static Employee currentUser;
+    public static String message;
 
 
     @GetMapping(value = "/employees")
