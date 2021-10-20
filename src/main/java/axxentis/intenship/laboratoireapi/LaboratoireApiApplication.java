@@ -12,20 +12,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Slf4j
 @SpringBootApplication
-@EnableSwagger2
-public class     LaboratoireApiApplication {
+public class LaboratoireApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LaboratoireApiApplication.class, args);
-    }
-
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
     }
 
 }
