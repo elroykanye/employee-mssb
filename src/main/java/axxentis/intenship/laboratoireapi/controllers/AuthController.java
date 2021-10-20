@@ -64,8 +64,7 @@ public class AuthController {
 
 
 
-    Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private String message;
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
@@ -76,7 +75,7 @@ public class AuthController {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         } catch (Exception exception) {
             System.out.println("exception gen: " + exception.getMessage());
-            message = CustumMessage.LOGIN_MOTPASSE_INCORRECT;
+            String message = CustumMessage.LOGIN_MOTPASSE_INCORRECT;
             LOGGER.error(message);
             throw new ResourceNotFoundException(message);
         }
