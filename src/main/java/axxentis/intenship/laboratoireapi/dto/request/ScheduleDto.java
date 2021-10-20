@@ -6,31 +6,46 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
 public class ScheduleDto {
     private Long id;
+
     @NotBlank(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     @NotNull(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     private String title;
+
     @NotBlank(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     @NotNull(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     private String task;
+
     private String startDate;
+
     private String finishDate;
+
     private Long percentageComplete;
+
     private Boolean status;
+
     private String observation;
-    private Long HR_result;
-    private Long supervisor_result;
-    private String HR_observation;
-    private String supervisor_observation;
+
+    private Long hrResult;
+
+    private Long supervisorResult;
+
+    private String hrObservation;
+
+    private String supervisorObservation;
+
+    private Boolean scheduleComplete;
+
+    private String assigneeEmail;
+
     @NotNull(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
     private Long employeeId;
     @NotNull(message = CustumMessage.CHAMPS_OBLIGATOIRE_VIDE)
-    private Long taskId;
-    private Boolean scheduleComplete;
-    private String assigneeEmail;
+    private List<Long> taskId;
 
 }
