@@ -27,9 +27,6 @@ public class Schedule {
     @NotBlank(message = "Schedule Title cannot be empty or Null")
     private String title;
 
-    @Column(columnDefinition="Weekly tasks", nullable = false)
-    private String task;
-
     private String startDate;
 
     private String finishDate;
